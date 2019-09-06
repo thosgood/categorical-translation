@@ -1,0 +1,16 @@
+---
+noun:
+  root:
+    - EN: scheme
+    - FR: schéma [m]
+    - ES: esquema [m]
+    - DE: Schema [m]
+    - IT: schema [m]
+    - PT: esquema [m]
+    - RU: cхема [f]
+    - ZH: 概形
+  adjs:
+    - { EN: reduced
+      , FR: réduit }
+    - { EN: integral
+      , FR: intègre }
