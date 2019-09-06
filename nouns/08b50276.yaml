@@ -11,6 +11,9 @@ noun:
     - RU: cхема [f]
     - ZH: 概形
   adjs:
+    - { EN: affine
+      , FR: affine
+      , SP: afín}
     - { EN: reduced
       , FR: réduit }
     - { EN: integral
