@@ -1,0 +1,35 @@
+{
+    "noun": {
+        "root": {
+            "DE": "Schema [m]",
+            "EN": "scheme",
+            "ES": "esquema [m]",
+            "FR": "schéma [m]",
+            "IT": "schema [m]",
+            "JA": "概形",
+            "PT": "esquema [m]",
+            "RU": "cхема [f]",
+            "ZH": "概形"
+        },
+        "adjs": {
+            "085e026a": {
+                "EN": "affine",
+                "FR": "affine",
+                "SP": "afín"
+            },
+            "0ba202dd": {
+                "DE": "reduziert",
+                "EN": "reduced",
+                "FR": "réduit"
+            },
+            "0f230357": {
+                "EN": "integral",
+                "FR": "intègre"
+            }
+        }
+    }
+}
+
+// https://it.wikipedia.org/wiki/Schema_(matematica)#Tipi_di_schemi
+// https://translate.academic.ru/scheme/en/ru/
+// https://de.wikipedia.org/wiki/Schema_(algebraische_Geometrie)#Eigenschaften_von_Schemata
