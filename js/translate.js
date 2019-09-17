@@ -9,27 +9,25 @@ $.getJSON(nounsURL, data => nouns = data);
 translateInput.keyup(function() {
   var searchValue = $(this).val();
     
-  if (searchValue === '') {
+  if ( searchValue === '' ) {
     resultsHTML.html('');
     return;
   }
 
   var parsedInput = {};
   searchValue.split(' ').forEach(function(item) {
-    if (item === '') {
+    if ( item === '' ) {
       return;
     }
 
     parsedInput[item] = {};
     var itemAdded = false;
 
-    // var regex = new RegExp(item);
     Object.keys(nouns).map(nHash => {
       Object.keys(nouns[nHash].root).map(lang => {
         var atom = nouns[nHash].root[lang].atom;
-        // if (atom.search(regex) != -1) {
         if (atom === item) {
-          if (typeof parsedInput[item][nHash] === `undefined`) {
+          if ( typeof parsedInput[item][nHash] === `undefined` ) {
             parsedInput[item][nHash] = [];
           }
           parsedInput[item][nHash].push(lang);
@@ -39,10 +37,17 @@ translateInput.keyup(function() {
     });
 
     if (!itemAdded) {
-      parsedInput[item] = `unknown`;
+      parsedInput[item] = 'unknown';
     }
   });
 
-  console.log(parsedInput);
-  // resultsHTML.html(parsedInput.join(' '));
+  resultsHTML.html('');
+  Object.keys(parsedInput).map(word => {
+    if ( parsedInput[word] === 'unknown' ) {
+      resultsHTML.append(`<span class="unknown">${word}</span>`);
+    } else {
+      allLanguages = Object.values(parsedInput[word]).flat().join(' ');
+      resultsHTML.append(`<span class="noun ${allLanguages}">${word}</span>`);
+    }
+  });
 });
