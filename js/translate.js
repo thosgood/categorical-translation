@@ -4,30 +4,43 @@ const translateInput = $('#translateInput');
 const resultsUL = $('#results');
 
 var nouns
-// TODO: this can be rewritten somehow simpler, but I can't remember how...
-$.getJSON(nounsURL, function(data) {
-    nouns = data;
-});
+$.getJSON(nounsURL, data => nouns = data);
 
 translateInput.keyup(function() {
-    var searchValue = $(this).val();
-
-    if (searchValue === '') {
-        resultsUL.html('');
-        return;
-    }
+  var searchValue = $(this).val();
+  var regex = new RegExp(searchValue);
     
-    var regex = new RegExp(searchValue, "i");
-    var matches = [];
-    Object.keys(nouns).map(e => {
-        Object.keys(nouns[e].root).map(f => {
-            var atom = nouns[e].root[f];
-            console.log(atom);
-            if (atom.search(regex) != -1) {
-                matches += `<li>${f}: ${atom}</li>`;
-            }
-        });
-    });
+  if (searchValue === '') {
+    resultsUL.html('');
+    return;
+  }
 
-    resultsUL.html(matches);
+  var matches = [];
+  Object.keys(nouns).map(hashn => {
+    Object.keys(nouns[hashn].root).map(lang => {
+      var atom = nouns[hashn].root[lang].atom;
+        if (atom.search(regex) != -1) {
+          var adjectives = [];
+          // matches += `<li>${f}: ${atom} (NOUN)</li>`;
+          Object.keys(nouns[hashn].adjs).map(hasha => {
+            var adj = nouns[hashn].adjs[hasha][lang];
+            if (typeof adj !== 'undefined') {
+              adjectives += `
+                <li>${nouns[hashn].adjs[hasha][lang].atom}</li>
+              `;
+            }
+          });
+          matches += `
+            <li>
+              ${lang}: ${atom} (NOUN)
+              <ul>
+                ${adjectives}
+              </ul>
+            </li>
+          `;
+        }
+    });
+  });
+
+  resultsUL.html(matches);
 });
