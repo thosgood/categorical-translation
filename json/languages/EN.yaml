@@ -1,0 +1,56 @@
+---
+
+###########
+# English #
+###########
+
+nouns:
+  - { atom: scheme
+    , adjs: [ { atom: .
+              , base: 08b50276 }
+            , { atom: integral
+              , base: 08b50276/0f230357
+              , side: left }
+            , { atom: reduced
+              , base: 08b50276/0ba202dd
+              , side: left } ] }
+  - { atom: group
+    , adjs: [ { atom: .
+              , base: 0677022e
+              , side: left }
+            , { atom: finite
+              , base: 0677022e/08b70280
+              , side: left }
+            , { atom: reduced
+              , base: 0677022e/0ba202dd
+              , side: left }
+            , { atom: abelian
+              , base: 0677022e/0b0e02cd
+              , side: left } ] }
+  - { atom: topological space
+    , adjs: [ { atom: .
+              , base: 3f1206ca
+              , side: left }
+            , { atom: compact
+              , base: 3f1206ca/0b9402e8
+              , side: left }
+            , { atom: Hausdorff
+              , base: 3f1206ca/11b603a3
+              , side: left } ] }
+
+constructors:
+  - { atom: ☐ and ☐
+    , type: "(Γ∈{n,s})⇒(Γ→)Γ(Γ←)"
+    , base: ☐⋀☐ }
+  - { atom: if ☐ then ☐
+    , type: s((s←)⊠(s←))
+    , base: ☐⇒☐ }
+  - { atom: let ☐ be ☐
+    , type: s((v←)⊠(n←))
+    , base: η☐☐ }
+  - { atom: the
+    , type: n₀n←
+    , base: ɩ }
+  - { atom: an
+    , type: n₁n←
+    , base: ε }

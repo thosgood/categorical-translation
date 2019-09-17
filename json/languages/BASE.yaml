@@ -1,0 +1,42 @@
+---
+
+########
+# BASE #
+########
+
+nouns:
+  - { desc: scheme
+    , adjs: [ { atom: 08b50276
+              , desc: . }
+            , { atom: 08b50276/0f230357
+              , desc: integral}
+            , { atom: 08b50276/0ba202dd
+              , desc: reduced} ] }
+  - { desc: group
+    , adjs: [ { atom: 0677022e
+              , desc: . }
+            , { atom: 0677022e/08b70280
+              , desc: finite }
+            , { atom: 0677022e/0ba202dd
+              , desc: reduced }
+            , { atom: 0677022e/0b0e02cd
+              , desc: abelian } ] }
+  - { desc: topological space
+    , adjs: [ { atom: 3f1206ca
+              , desc: . }
+            , { atom: 3f1206ca/0b9402e8
+              , desc: compact }
+            , { atom: 3f1206ca/11b603a3
+              , desc: Haurdorff } ] }
+
+constructors:
+  - { atom: ☐⋀☐
+    , desc: and }
+  - { atom: ☐⇒☐
+    , desc: implies }
+  - { atom: ɩ
+    , desc: the }
+  - { atom: ε
+    , desc: an}
+  - { atom: η☐☐
+    , desc: let ☐ be ☐ } # η is halfway between ε and ɩ, hence the notation
