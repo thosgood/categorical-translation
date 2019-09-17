@@ -1,7 +1,7 @@
-const nounsURL = "https://thosgood.com/maths-dictionary/json/nouns.json";
+const nounsURL = "https://thosgood.com/categorical-translation/json/nouns.json";
 
 const translateInput = $('#translateInput');
-const resultsDiv = $('#results');
+const resultsUL = $('#results');
 
 var nouns
 // TODO: this can be rewritten somehow simpler, but I can't remember how...
@@ -13,7 +13,7 @@ translateInput.keyup(function() {
     var searchValue = $(this).val();
 
     if (searchValue === '') {
-        resultsDiv.html('');
+        resultsUL.html('');
         return;
     }
     
@@ -21,12 +21,12 @@ translateInput.keyup(function() {
     var matches = [];
     Object.keys(nouns).map(e => {
         Object.keys(nouns[e].root).map(f => {
-            var atom = nouns[e].root[f]
+            var atom = nouns[e].root[f].atom
             if (atom.search(regex) != -1) {
-                matches += atom;
+                matches += `<li>${f}: ${atom}</li>`;
             }
         });
     });
 
-    resultsDiv.html(matches);
+    resultsUL.html(matches);
 });

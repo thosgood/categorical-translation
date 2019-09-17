@@ -6,6 +6,7 @@
 
 nouns:
   - { atom: schéma
+    , gend: m
     , adjs: [ { atom: .
               , base: 08b50276}
             , { atom: réduit
