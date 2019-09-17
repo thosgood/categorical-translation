@@ -13,3 +13,9 @@
 - https://es.wikipedia.org/wiki/Anexo:Glosario_de_teor%C3%ADa_de_anillos
 - https://arxiv.org/pdf/math/0609472.pdf
 - https://www.emaths.co.uk/index.php/teacher-resources/other-resources/english-as-an-additional-language-eal/category/russian
+
+- 08b50276
+    + `https://it.wikipedia.org/wiki/Schema_(matematica)#Tipi_di_schemi`
+    + `https://translate.academic.ru/scheme/en/ru/`
+    + `https://de.wikipedia.org/wiki/Schema_(algebraische_Geometrie)#Eigenschaften_von_Schemata`
+
