@@ -1,7 +1,16 @@
+div.results {
+}
+
+div.atom {
+}
+
 .unknown {
     color: red;
 }
 
 .noun {
     color: blue;
+}
+
+div.atom .language{
 }

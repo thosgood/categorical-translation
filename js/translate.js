@@ -6,6 +6,8 @@ const resultsHTML = $('#results');
 var nouns;
 $.getJSON(nounsURL, data => nouns = data);
 
+// At the moment, everything happens every single time the user enters a new
+// character into the input.
 translateInput.keyup(function() {
   var searchValue = $(this).val();
     
@@ -15,6 +17,7 @@ translateInput.keyup(function() {
   }
 
   var parsedInput = {};
+  // STEP 1.
   // We're going to check each word to see if it's a noun.
   searchValue.split(' ').forEach(function(item) {
     if ( item === '' ) {
@@ -54,21 +57,36 @@ translateInput.keyup(function() {
     }
   });
 
-  // Clear any HTML already on display.
+  // STEP 2.
+  // We now search, for each noun, for adjectives *in the same language*, before
+  // and after the noun (where they can be any number of words before or after,
+  // as long as all words in between are also adjectives in the same language).
+
+  // STEP 3.
+  // Display things for the user.
+
+  // Start by clearing any HTML already on display.
   resultsHTML.html('');
 
   // Iterate over every word in our parsed input.
   Object.keys(parsedInput).map(word => {
+    atomHTML = '';
+    atomHTML += '<div class="atom">';
     if ( parsedInput[word] === 'unknown' ) {
-      resultsHTML.append(`<span class="unknown">${word}</span>`);
+      atomHTML += `<span class="unknown">${word}</span>`;
     } else {
       // Note that Object.values returns an array of values, and since we will
       // only have one value (which is itself an array), we need to flatten
       // before joining. The reason that we (currently) use Objects.values is
       // because we don't know, a priori, what the hash corresponding to our
       // word will be (e.g. that 'scheme' corresponds to '08b50276').
-      allLanguages = Object.values(parsedInput[word]).flat().join(' ');
-      resultsHTML.append(`<span class="noun ${allLanguages}">${word}</span>`);
+      atomHTML += `<span class="noun">${word}</span>`;
+      allLanguages = Object.values(parsedInput[word]).flat();
+      allLanguages.forEach(function(lang) {
+        atomHTML += `<span class="language">${lang}</span>`;
+      });
     }
+    atomHTML += '</div>';
+    resultsHTML.append(atomHTML);
   });
 });
