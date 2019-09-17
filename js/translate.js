@@ -21,7 +21,8 @@ translateInput.keyup(function() {
     var matches = [];
     Object.keys(nouns).map(e => {
         Object.keys(nouns[e].root).map(f => {
-            var atom = nouns[e].root[f].atom
+            var atom = nouns[e].root[f];
+            console.log(atom);
             if (atom.search(regex) != -1) {
                 matches += `<li>${f}: ${atom}</li>`;
             }
