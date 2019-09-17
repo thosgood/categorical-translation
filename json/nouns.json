@@ -27,5 +27,21 @@
                 "FR": "intègre"
             }
         }
+    },
+    "0677022e": {
+        "root": {
+            "EN": "group",
+            "FR": "groupe [m]"
+        },
+        "adjs": {
+            "0ba202dd": {
+                "EN": "reduced",
+                "FR": "réduit"
+            },
+            "0b0e02cd": {
+                "EN": "abelian",
+                "FR": "abélien"
+            }
+        }
     }
 }
