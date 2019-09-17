@@ -16,17 +16,17 @@ translateInput.keyup(function() {
     return;
   }
 
-  var parsedInput = {};
+  var parsedInput = [];
   // STEP 1.
   // We're going to check each word to see if it's a noun.
-  searchValue.split(' ').forEach(function(item) {
+  searchValue.split(' ').forEach(function(item, index) {
     if ( item === '' ) {
       return;
     }
 
     // This parsedInput dictionary is going to contain all the information about
     // each word in the input.
-    parsedInput[item] = {};
+    parsedInput[index] = { 'input': item };
     // If we find one or more matches for the word, then we don't want to label
     // it as 'unknown', so we will use the itemAdded variable to ensure this.
     var itemAdded = false;
@@ -41,19 +41,21 @@ translateInput.keyup(function() {
           // If this is the first language that contains this word, then
           // initialise an array, where we can store all languages that contain
           // this word.
-          if ( typeof parsedInput[item][nHash] === `undefined` ) {
-            parsedInput[item][nHash] = [];
+          parsedInput[index]['type'] = 'noun';
+          parsedInput[index]['root'] = nHash;
+          if ( typeof parsedInput[index]['langs'] === `undefined` ) {
+            parsedInput[index]['langs'] = [];
           }
-          parsedInput[item][nHash].push(lang);
+          parsedInput[index]['langs'].push(lang);
           itemAdded = true;
         }
       });
     });
-
+    
     // If we haven't found the word in our list of nouns, then label it as
     // 'unknown'.
     if (!itemAdded) {
-      parsedInput[item] = 'unknown';
+      parsedInput[index]['type'] = 'unknown';
     }
   });
 
@@ -69,22 +71,26 @@ translateInput.keyup(function() {
   resultsHTML.html('');
 
   // Iterate over every word in our parsed input.
-  Object.keys(parsedInput).map(word => {
+  parsedInput.forEach(function(item, index) {
     atomHTML = '';
     atomHTML += '<div class="atom">';
-    if ( parsedInput[word] === 'unknown' ) {
-      atomHTML += `<span class="unknown">${word}</span>`;
-    } else {
-      // Note that Object.values returns an array of values, and since we will
-      // only have one value (which is itself an array), we need to flatten
-      // before joining. The reason that we (currently) use Objects.values is
-      // because we don't know, a priori, what the hash corresponding to our
-      // word will be (e.g. that 'scheme' corresponds to '08b50276').
-      atomHTML += `<span class="noun">${word}</span>`;
-      allLanguages = Object.values(parsedInput[word]).flat();
-      allLanguages.forEach(function(lang) {
-        atomHTML += `<span class="language">${lang}</span>`;
-      });
+    switch ( item['type'] ) {
+      case 'unknown':
+        atomHTML += `<span class="unknown">${item['input']}</span>`;
+        break;
+      case 'noun':
+        // Note that Object.values returns an array of values, and since we will
+        // only have one value (which is itself an array), we need to flatten
+        // before joining. The reason that we (currently) use Objects.values is
+        // because we don't know, a priori, what the hash corresponding to our
+        // word will be (e.g. that 'scheme' corresponds to '08b50276').
+        atomHTML += `<span class="noun">${item['input']}</span>`;
+        console.log(item);
+        allLanguages = Object.values(item['langs']).flat();
+        allLanguages.forEach(function(lang) {
+          atomHTML += `<span class="language">${lang}</span>`;
+        });
+        break;
     }
     atomHTML += '</div>';
     resultsHTML.append(atomHTML);
