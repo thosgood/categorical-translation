@@ -25,6 +25,9 @@ translateInput.keyup(function() {
   }
 
   var parsedInput = [];
+
+
+
   // STEP 1.
   // We're going to check each word to see if it's a noun.
   searchValue.split(' ').forEach(function(input, index) {
@@ -57,6 +60,8 @@ translateInput.keyup(function() {
       parsedInput[index]['type'] = 'unknown';
     }
   });
+
+
 
   // STEP 2.
   // We now search, for each noun, for adjectives *in the same language*, before
@@ -91,45 +96,89 @@ translateInput.keyup(function() {
         }
       });
 
-      // Look before our noun to see if the preceding word is a suitable
-      // adjective. If so, look at the word before that, and so on. If not, then
+      // Now for some greedy adjective searching.
+      // 
+      // Look at the entire string before our noun to see if it matches an
+      // adjective of that noun with a translation in our language. If it does,
+      // then compress it down to a single entry in parsedInput. If not, then
+      // look at the entire string minus the first word, and do the same.
+      // Continue doing this until we find a match (if any). If we do, then now
+      // look at the entire string before the noun *minus the word just before
+      // the noun*. If this word (just before the noun) is an adjective *that is
+      // linked to our noun*, then carry on recursively. If it is *not*, then
       // break.
-      for ( i = 1; i <= index; i++ ) {
-        befores.forEach(function(before) {
-          if ( parsedInput[index-i]['input'] === before['atom'] ) {
-            parsedInput[index-i]['type'] = 'adjective';
-            parsedInput[index-i]['base'] = before['base'];
-            parsedInput[index-i]['link'] = index;
-          }
-        });
-        if ( parsedInput[index-i]['type'] !== 'adjective' ) {
+      // 
+      // ? ? ? ? n  ->  no match
+      // x ? ? ? n  ->  no match
+      // x x ? ? n  ->  match!
+      // ? ? (a) n  ->  no match
+      // x ? (a) n  ->  no match
+      // ? x (a) n  ->  break here: this word can't be linked to our noun
+      // 
+      // (j-1) is the 'gap' between our noun and the preceding string;
+      // i is the index from which our preceding string starts;
+      // that is, our totalBeforeIndex goes from i to (index-j), but .splice()
+      // is strict on the upper bound, so we need to do splice(i, index-j+1)
+      //
+      // TODO: check for the myriad of possible (probable) off-by-one errors
+      for (var j = 1; j <= index; j++) {
+        for ( var i = 0; i <= index-1; i++ ) {
+          totalBeforeIndex = [];
+          Object.values(parsedInput.slice(i, index-j+1)).map(value => {
+            totalBeforeIndex.push(value['input']);
+          });
+          befores.forEach(function(before) {
+            if ( totalBeforeIndex.join(' ') === before['atom'] ) {
+              result = {};
+              result['input'] = totalBeforeIndex.join(' ');
+              result['type'] = 'adjective';
+              result['base'] = before['base'];
+              result['link'] = index;
+              parsedInput.splice(i, index-j+1-i, result);
+            }
+          });
+        }
+        if ( j >= 1 && typeof parsedInput[index-j] !== 'undefined' && parsedInput[index-j]['link'] != index ) {
           break;
         }
       }
-      // As above, but for adjectives coming after the noun.
-      // TODO: make this work for 'of finite type'!
-        // THIS WILL probably need something greedy, and so force us to rewrite
-        // this part of the code entirely
-      for ( i = 1; i < (parsedInput.length - index); i++ ) {
-        afters.forEach(function(after) {
-          if ( parsedInput[index+i]['input'] === after['atom'] ) {
-            parsedInput[index+i]['type'] = 'adjective';
-            parsedInput[index+i]['base'] = after['base'];
-            parsedInput[index+i]['link'] = index;
-          }
-        });
-        if ( parsedInput[index+i]['type'] !== 'adjective' ) {
+
+      // As above, but for adjectives coming *after* the noun.
+      for (var j = 1; j <= parsedInput.length - index + 1; j++) {
+        for ( var i = parsedInput.length - index + j; i >= 1; i-- ) {
+          totalAfterIndex = [];
+          Object.values(parsedInput.slice(index+j, index+i)).map(value => {
+            totalAfterIndex.push(value['input']);
+          });
+          afters.forEach(function(after) {
+            if ( totalAfterIndex.join(' ') === after['atom'] ) {
+              result = {};
+              result['input'] = totalAfterIndex.join(' ');
+              result['type'] = 'adjective';
+              result['base'] = after['base'];
+              result['link'] = index;
+              parsedInput.splice(index+j, i-j, result);
+            }
+          });
+        }
+        if (typeof parsedInput[index+j] !== 'undefined' && parsedInput[index+j]['link'] != index ) {
           break;
         }
       }
     }
   });
 
+
+
   // STEP 3.
   // TODO: sentence constructors.
 
+
+
   // STEP 4.
   // TODO: do the translation!
+
+
 
   // STEP 5.
   // TODO: display things for the user.
