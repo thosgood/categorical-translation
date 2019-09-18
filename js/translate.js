@@ -214,13 +214,23 @@ translateInput.keyup(function() {
 
   // STEP 3.
   // TODO: sentence constructors.
-  // TODO: this will be more regexing than exact searching, right?
-  // e.g. (let . be .) should be a regex and we should check that the two matches
-  // (the arguments) are both of the right type
 
-  var constructorRegexes = []
+  var nTypeCons = [];
+  var sTypeCons = [];
   Object.keys(constructors).map(consBase => {
-    var cons = constructors[consBase][language];
+    var cons = constructors[consBase];
+    switch ( cons['fullType'].charAt(0) ) {
+      case 'n':
+        nTypeCons.push(cons[language]);
+        break;
+      case 's':
+        sTypeCons.push(cons[language]);
+        break;
+    }
+    console.log(nTypeCons);
+    console.log(sTypeCons);
+  });
+
     // BUILD A REGEX WHERE WE REPLACE THE ☐ BY .* (???) (THIS SHOULD BE TYPED!)
     //
     // LOOK FOR ANY ARROWS IN THE TYPE
@@ -233,6 +243,8 @@ translateInput.keyup(function() {
         // generally, we want things with 'final type' equal to n to bind first
     // 
     // NOW REMOVE THESE ARROWS AND CHARACTERS FROM THE TYPE
+    //
+    // !! THE BELOW MIGHT NOT BE NEEDED THANKS TO fullType !!
     // 
     // NOW REMOVE ANY SQUARE TENSOR SYMBOLS THAT HAVE ONLY EMPTY BRACKETS ()
     // EITHER SIDE
@@ -241,9 +253,6 @@ translateInput.keyup(function() {
     // 
     // WHAT IS LEFT IS THE TYPE OF THE cons WHEN ALL ARGUMENTS WE HAVE HAVE BEEN
     // APPLIED
-    console.log(cons);
-    regex = new RegExp('');
-  });
 
   // END STEP 3.
 
