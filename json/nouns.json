@@ -50,6 +50,9 @@
       "0b0e02cd": {
         "EN": { "atom": "abelian", "pstn": "before" },
         "FR": { "atom": "abélien", "pstn": "after" }
+      },
+      "08b70280": {
+        "EN": { "atom": "finite", "pstn": "before" }
       }
     }
   }
