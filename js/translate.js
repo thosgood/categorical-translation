@@ -28,38 +28,36 @@ translateInput.keyup(function() {
   var parsedInput = [];
   // STEP 1.
   // We're going to check each word to see if it's a noun.
-  searchValue.split(' ').forEach(function(item, index) {
-    if ( item === '' ) {
+  searchValue.split(' ').forEach(function(input, index) {
+    if ( input === '' ) {
       return;
     }
 
     // This parsedInput dictionary is going to contain all the information about
     // each word in the input.
-    parsedInput[index] = { 'input': item };
+    parsedInput[index] = { 'input': input };
     // If we find one or more matches for the word, then we don't want to label
     // it as 'unknown', so we will use the itemAdded variable to ensure this.
-    var itemAdded = false;
+    var inputAdded = false;
 
     // For every noun with a translation into this language, check to see if it
     // matches the input.
     Object.keys(nouns).map(nounHash => {
       if ( typeof nouns[nounHash]['root'][language] !== 'undefined' ) {
         var atom = nouns[nounHash]['root'][language]['atom'];
-        if (atom === item) {
+        if (atom === input) {
           parsedInput[index]['type'] = 'noun';
-          parsedInput[index]['root'] = nounHash;
-          itemAdded = true;
+          parsedInput[index]['base'] = nounHash;
+          inputAdded = true;
         }
       }
     });
 
     // If we haven't found our word, then label it as 'unknown'.
-    if (!itemAdded) {
+    if (!inputAdded) {
       parsedInput[index]['type'] = 'unknown';
     }
   });
-
-  console.log(parsedInput);
 
   // STEP 2.
   // We now search, for each noun, for adjectives *in the same language*, before
@@ -70,13 +68,59 @@ translateInput.keyup(function() {
   // the 'pstn' key of each adjective.
   parsedInput.forEach(function(item, index) {
     if (item['type'] === 'noun') {
-      var nounHash = item['root'];
+      var nounHash = item['base'];
       var adjectives = nouns[nounHash]['adjs'];
-      // GO THROUGH ALL ADJECTIVES IN THE SAME LANGUAGE
-        // SEARCH FOR ANY WITH pstn:before JUST BEFORE THE WORD
-          // IF NONE FOUND, BREAK
-          // IF ONE FOUND, ADD TO parsedInput, REPEAT
-        // SAME FOR pstn:after
+      var befores = [];
+      var afters = [];
+
+      // Go through all adjectives linked to the noun.
+      Object.keys(adjectives).map(adjectiveHash => {
+        // Select those that have a translation in our language, and then build
+        // the lists of possible adjectives before or after (resp.) our noun.
+        var currentAdjective = adjectives[adjectiveHash][language]
+        if ( typeof currentAdjective !== 'undefined' ) {
+          switch ( currentAdjective['pstn'] ) {
+            case 'before':
+              befores.push({'atom': currentAdjective['atom'], 'base': adjectiveHash});
+              break;
+            case 'after':
+              afters.push({'atom': currentAdjective['atom'], 'base': adjectiveHash});
+              break;
+            default:
+              break;
+          }
+        }
+      });
+
+      // Look before our noun to see if the preceding word is a suitable
+      // adjective. If so, look at the word before that, and so on. If not, then
+      // break.
+      for ( i = 1; i <= index; i++ ) {
+        befores.forEach(function(before) {
+          if ( parsedInput[index-i]['input'] === before['atom'] ) {
+            parsedInput[index-i]['type'] = 'adjective';
+            parsedInput[index-i]['base'] = before['base'];
+            parsedInput[index-i]['link'] = index;
+          }
+        });
+        if ( parsedInput[index-i]['type'] !== 'adjective' ) {
+          break;
+        }
+      }
+      // As above, but for words coming after.
+      // TODO: make this work for 'of finite type'!
+      for ( i = 1; i < (parsedInput.length - index); i++ ) {
+        afters.forEach(function(after) {
+          if ( parsedInput[index+i]['input'] === after['atom'] ) {
+            parsedInput[index+i]['type'] = 'adjective';
+            parsedInput[index+i]['base'] = after['base'];
+            parsedInput[index+i]['link'] = index;
+          }
+        });
+        if ( parsedInput[index+i]['type'] !== 'adjective' ) {
+          break;
+        }
+      }
     }
   });
 
@@ -89,13 +133,10 @@ translateInput.keyup(function() {
   // STEP 5.
   // TODO: display things for the user.
   for ( i = 0; i < translateInput.length; i++ ) {
-    current = translateInput[i];
-    if ( current['id'] !== language ) {
-      if ( typeof parsedInput[0]['root'] !== 'undefined' ) {
-        current['value'] = parsedInput[0]['root'];
-      } else {
-        current['value'] = '';
-      }
+    currentInput = translateInput[i];
+    if ( currentInput['id'] !== language ) {
     }
   }
+
+  console.log(parsedInput);
 });
