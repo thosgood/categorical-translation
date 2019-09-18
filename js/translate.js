@@ -67,21 +67,24 @@ translateInput.keyup(function() {
   // the 'pstn' key of each adjective.
   parsedInput.forEach(function(item, index) {
     if (item['type'] === 'noun') {
-      var languages = item['langs'];
       var nounHash = item['root'];
       var adjectives = nouns[nounHash]['adjs'];
-      // FOR EACH LANGUAGE
-        // FIND ALL ADJECTIVES IN THAT LANGUAGE
-        // SEARCH BEFORE/AFTER FOR THEM
-        // 
+      // GO THROUGH ALL ADJECTIVES IN THE SAME LANGUAGE
+        // SEARCH FOR ANY WITH pstn:before JUST BEFORE THE WORD
+          // IF NONE FOUND, BREAK
+          // IF ONE FOUND, ADD TO parsedInput, REPEAT
+        // SAME FOR pstn:after
     }
   });
 
   // STEP 3.
-  // Do the translation!
+  // TODO: sentence constructors.
 
   // STEP 4.
-  // Display things for the user.
+  // TODO: do the translation!
+
+  // STEP 5.
+  // TODO: display things for the user.
   for ( i = 0; i < translateInput.length; i++ ) {
     current = translateInput[i];
     if ( current['id'] !== language ) {

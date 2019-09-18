@@ -8,6 +8,8 @@
 
 #### Theory
 
+- to describe a noun we should give the base + a list of any adjectives (in base form)
+    + for example, a 'finite abelian group' would be described as `0677022e[08b70280,0b0e02cd]`
 - rewrite "soit ☐ ☐/let ☐ be ☐" to be "let ☐ be **such that**"?
     + or can we just treat "the scheme $X$ such that blah" as a noun? yes?
 - pluralisation rules

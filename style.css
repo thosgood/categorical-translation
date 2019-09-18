@@ -1,17 +1,21 @@
-div.results {
+ul#inputs {
+  width: 40%;
+  margin: auto;
+  list-style: none;
 }
 
-div.atom {
+ul#inputs li {
+  margin: 12px;
 }
 
-div.atom .unknown {
-    color: red;
+input.translateInput {
+  width: 100%;
+  padding: 4px;
+  border: none;
+  border-bottom: 2px solid black;
 }
 
-div.atom .noun {
-    color: blue;
-}
-
-div.atom .language{
-    margin-left: 2px;
+input.translateInput:focus {
+  outline: none;
+  background-color: lightblue;
 }
