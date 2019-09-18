@@ -109,7 +109,7 @@ translateInput.keyup(function() {
       // As above, but for adjectives coming after the noun.
       // TODO: make this work for 'of finite type'!
         // THIS WILL probably need something greedy, and so force us to rewrite
-        // this part of the code
+        // this part of the code entirely
       for ( i = 1; i < (parsedInput.length - index); i++ ) {
         afters.forEach(function(after) {
           if ( parsedInput[index+i]['input'] === after['atom'] ) {
@@ -133,11 +133,10 @@ translateInput.keyup(function() {
 
   // STEP 5.
   // TODO: display things for the user.
-  for ( i = 0; i < translateInput.length; i++ ) {
-    currentInput = translateInput[i];
-    if ( currentInput['id'] !== language ) {
-    }
-  }
-
-  console.log(parsedInput);
+  resultsHTML.html(JSON.stringify(parsedInput, undefined, 2));
+  // for ( i = 0; i < translateInput.length; i++ ) {
+  //   currentInput = translateInput[i];
+  //   if ( currentInput['id'] !== language ) {
+  //   }
+  // }
 });
