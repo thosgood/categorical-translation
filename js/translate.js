@@ -63,6 +63,12 @@ translateInput.keyup(function() {
   // We now search, for each noun, for adjectives *in the same language*, before
   // and after the noun (where they can be any number of words before or after,
   // as long as all words in between are also adjectives in the same language).
+  parsedInput.forEach(function(item, index) {
+    if (item['type'] === 'noun') {
+      var nHash = item['root'];
+      console.log(nouns[nHash]['adjs']);
+    }
+  });
 
   // STEP 3.
   // Display things for the user.
@@ -85,7 +91,6 @@ translateInput.keyup(function() {
         // because we don't know, a priori, what the hash corresponding to our
         // word will be (e.g. that 'scheme' corresponds to '08b50276').
         atomHTML += `<span class="noun">${item['input']}</span>`;
-        console.log(item);
         allLanguages = Object.values(item['langs']).flat();
         allLanguages.forEach(function(lang) {
           atomHTML += `<span class="language">${lang}</span>`;

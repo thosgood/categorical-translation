@@ -4,13 +4,14 @@ div.results {
 div.atom {
 }
 
-.unknown {
+div.atom .unknown {
     color: red;
 }
 
-.noun {
+div.atom .noun {
     color: blue;
 }
 
 div.atom .language{
+    margin-left: 2px;
 }
