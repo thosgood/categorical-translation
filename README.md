@@ -1,7 +1,13 @@
 # Categorical translation
 
 ### Things to do
+
+#### Next on my list
+
+- how are you going to deal with 'of finite type' ?
+
 #### Theory
+
 - rewrite "soit ☐ ☐/let ☐ be ☐" to be "let ☐ be **such that**"?
     + or can we just treat "the scheme $X$ such that blah" as a noun? yes?
 - pluralisation rules
@@ -19,6 +25,8 @@
     + it would be interesting to know if we _can_ formalise it, so that our languages can "only say things that make sense", but for now it is just a suggestive alternative to abstract hashes
 
 #### Implementation
+
+- the moment we know what the input language is, set this, and use it in all the code
 - generating files from some user-editable dictionary
     + this should also generate the functors
         * how will this be done? surely not individual files for every possible pairing? use the fact that these all lie over some formal language and do a search for the elements in the fibre over the same point?
@@ -30,6 +38,7 @@
     + some local version of the hash script
 
 ### Things to read
+
 - https://kwarc.info/people/mkohlhase/papers/synasc13.pdf
 - http://www.logique.jussieu.fr/~alp/structure_vernacular.pdf
 - https://uniformal.github.io/doc/

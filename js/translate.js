@@ -1,15 +1,21 @@
 const nounsURL = "https://thosgood.com/categorical-translation/json/nouns.json";
 
-const translateInput = $('#translateInput');
+const translateInput = $('input.translateInput');
 const resultsHTML = $('#results');
 
 var nouns;
 $.getJSON(nounsURL, data => nouns = data);
 
+// Clear all search inputs.
+$(document).ready(function() {
+  translateInput.val('');
+});
+
 // At the moment, everything happens every single time the user enters a new
 // character into the input.
 translateInput.keyup(function() {
   var searchValue = $(this).val();
+  var language = $(this).attr('id');
     
   if ( searchValue === '' ) {
     resultsHTML.html('');
@@ -31,73 +37,59 @@ translateInput.keyup(function() {
     // it as 'unknown', so we will use the itemAdded variable to ensure this.
     var itemAdded = false;
 
-    // For every entry (i.e. Adler32 hash) in our JSON file of nouns,
-    // we go through every language key and check to see if our word matches
-    // any of the corresponding atom values.
-    Object.keys(nouns).map(nHash => {
-      Object.keys(nouns[nHash].root).map(lang => {
-        var atom = nouns[nHash].root[lang].atom;
+    // For every noun with a translation into this language, check to see if it
+    // matches the input.
+    Object.keys(nouns).map(nounHash => {
+      if ( typeof nouns[nounHash]['root'][language] !== 'undefined' ) {
+        var atom = nouns[nounHash]['root'][language]['atom'];
         if (atom === item) {
-          // If this is the first language that contains this word, then
-          // initialise an array, where we can store all languages that contain
-          // this word.
           parsedInput[index]['type'] = 'noun';
-          parsedInput[index]['root'] = nHash;
-          if ( typeof parsedInput[index]['langs'] === `undefined` ) {
-            parsedInput[index]['langs'] = [];
-          }
-          parsedInput[index]['langs'].push(lang);
+          parsedInput[index]['root'] = nounHash;
           itemAdded = true;
         }
-      });
+      }
     });
-    
-    // If we haven't found the word in our list of nouns, then label it as
-    // 'unknown'.
+
+    // If we haven't found our word, then label it as 'unknown'.
     if (!itemAdded) {
       parsedInput[index]['type'] = 'unknown';
     }
   });
 
+  console.log(parsedInput);
+
   // STEP 2.
   // We now search, for each noun, for adjectives *in the same language*, before
   // and after the noun (where they can be any number of words before or after,
   // as long as all words in between are also adjectives in the same language).
+  // This is done by getting all the adjectives linked to the noun, and then
+  // searching for them in the input, working outwards from the noun, and using
+  // the 'pstn' key of each adjective.
   parsedInput.forEach(function(item, index) {
     if (item['type'] === 'noun') {
-      var nHash = item['root'];
-      console.log(nouns[nHash]['adjs']);
+      var languages = item['langs'];
+      var nounHash = item['root'];
+      var adjectives = nouns[nounHash]['adjs'];
+      // FOR EACH LANGUAGE
+        // FIND ALL ADJECTIVES IN THAT LANGUAGE
+        // SEARCH BEFORE/AFTER FOR THEM
+        // 
     }
   });
 
   // STEP 3.
+  // Do the translation!
+
+  // STEP 4.
   // Display things for the user.
-
-  // Start by clearing any HTML already on display.
-  resultsHTML.html('');
-
-  // Iterate over every word in our parsed input.
-  parsedInput.forEach(function(item, index) {
-    atomHTML = '';
-    atomHTML += '<div class="atom">';
-    switch ( item['type'] ) {
-      case 'unknown':
-        atomHTML += `<span class="unknown">${item['input']}</span>`;
-        break;
-      case 'noun':
-        // Note that Object.values returns an array of values, and since we will
-        // only have one value (which is itself an array), we need to flatten
-        // before joining. The reason that we (currently) use Objects.values is
-        // because we don't know, a priori, what the hash corresponding to our
-        // word will be (e.g. that 'scheme' corresponds to '08b50276').
-        atomHTML += `<span class="noun">${item['input']}</span>`;
-        allLanguages = Object.values(item['langs']).flat();
-        allLanguages.forEach(function(lang) {
-          atomHTML += `<span class="language">${lang}</span>`;
-        });
-        break;
+  for ( i = 0; i < translateInput.length; i++ ) {
+    current = translateInput[i];
+    if ( current['id'] !== language ) {
+      if ( typeof parsedInput[0]['root'] !== 'undefined' ) {
+        current['value'] = parsedInput[0]['root'];
+      } else {
+        current['value'] = '';
+      }
     }
-    atomHTML += '</div>';
-    resultsHTML.append(atomHTML);
-  });
+  }
 });

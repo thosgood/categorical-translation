@@ -25,6 +25,10 @@
             "0f230357": {
                 "EN": { "atom": "integral", "pstn": "before" },
                 "FR": { "atom": "intègre", "pstn": "after" }
+            },
+            "271a0557": {
+                "EN": { "atom": "of finite type", "pstn": "after" },
+                "FR": { "atom": "de type fini", "pstn": "after" }
             }
         }
     },
