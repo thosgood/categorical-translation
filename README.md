@@ -26,7 +26,7 @@
 
 #### Implementation
 
-- the moment we know what the input language is, set this, and use it in all the code
+- some input that can 'guess' the language (look at very early commits to see something like this)
 - generating files from some user-editable dictionary
     + this should also generate the functors
         * how will this be done? surely not individual files for every possible pairing? use the fact that these all lie over some formal language and do a search for the elements in the fibre over the same point?
