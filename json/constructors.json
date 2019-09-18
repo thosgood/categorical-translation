@@ -1,14 +1,22 @@
 {
   "η☐☐": {
+    "full_type": "s",
     "EN": { "atom": "let ☐ be ☐", "type": "s((v←)⊠(n←))" },
     "FR": { "atom": "soit", "type": "s((n←)(v←))" }
   },
   "☐⇒☐": {
+    "full_type": "s",
     "EN": { "atom": "if ☐ then ☐", "type": "s((s←)⊠(s←))" },
     "FR": { "atom": "si ☐ alors ☐", "type": "s((s←)⊠(s←))" }
   },
   "ε": {
-    "EN": { "atom": "a", "type": "nn←" },
-    "FR": { "atom": "un", "type": "nn←" }
+    "full_type": "n₁",
+    "EN": { "atom": "a", "type": "n₁n←" },
+    "FR": { "atom": "un", "type": "n₁n←" }
+  },
+  "ɩ": {
+    "full_type": "n₀",
+    "EN": { "atom": "the", "type": "n₀n←" },
+    "FR": { "atom": "le", "type": "n₀n←" }
   }
 }

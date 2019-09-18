@@ -1,55 +1,50 @@
 {
   "08b50276": {
     "root": {
-      "DE": { "atom": "Schema", "gend": "m" },
-      "EN": { "atom": "scheme" },
+      "DE": { "atom": "Schema" , "gend": "m" },
+      "EN": { "atom": "scheme"               },
       "ES": { "atom": "esquema", "gend": "m" },
-      "FR": { "atom": "schéma", "gend": "m" },
-      "IT": { "atom": "schema", "gend": "m" },
-      "JA": { "atom": "概形" },
+      "FR": { "atom": "schéma" , "gend": "m" },
+      "IT": { "atom": "schema" , "gend": "m" },
+      "JA": { "atom": "概形"                 },
       "PT": { "atom": "esquema", "gend": "m" },
-      "RU": { "atom": "cхема", "gend": "f" },
-      "ZH": { "atom": "概形" }
+      "RU": { "atom": "cхема"  , "gend": "f" },
+      "ZH": { "atom": "概形"                 }
     },
     "adjs": {
       "085e026a": {
         "EN": { "atom": "affine", "pstn": "before" },
-        "FR": { "atom": "affine", "pstn": "after" },
-        "SP": { "atom": "afín", "pstn": "after" }
+        "FR": { "atom": "affine", "pstn": "after"  },
+        "SP": { "atom": "afín"  , "pstn": "after"  }
       },
       "0ba202dd": {
         "DE": { "atom": "reduziert", "pstn": "before" },
-        "EN": { "atom": "reduced", "pstn": "before" },
-        "FR": { "atom": "réduit", "pstn": "after" }
+        "EN": { "atom": "reduced"  , "pstn": "before" },
+        "FR": { "atom": "réduit"   , "pstn": "after"  }
       },
       "0f230357": {
         "EN": { "atom": "integral", "pstn": "before" },
-        "FR": { "atom": "intègre", "pstn": "after" }
+        "FR": { "atom": "intègre" , "pstn": "after"  }
       },
       "271a0557": {
         "EN": { "atom": "of finite type", "pstn": "after" },
-        "FR": { "atom": "de type fini", "pstn": "after" }
+        "FR": { "atom": "de type fini"  , "pstn": "after" }
       }
     }
   },
   "0677022e": {
     "root": {
-      "EN": {
-        "atom": "group"
-      },
-      "FR": {
-        "atom": "groupe",
-        "gend": "m"
-      }
+      "EN": { "atom": "group"               },
+      "FR": { "atom": "groupe", "gend": "m" }
     },
     "adjs": {
       "0ba202dd": {
         "EN": { "atom": "reduced", "pstn": "before" },
-        "FR": { "atom": "réduit", "pstn": "after" }
+        "FR": { "atom": "réduit" , "pstn": "after"  }
       },
       "0b0e02cd": {
         "EN": { "atom": "abelian", "pstn": "before" },
-        "FR": { "atom": "abélien", "pstn": "after" }
+        "FR": { "atom": "abélien", "pstn": "after"  }
       },
       "08b70280": {
         "EN": { "atom": "finite", "pstn": "before" }

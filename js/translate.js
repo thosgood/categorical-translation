@@ -7,7 +7,7 @@ $.getJSON(nounsURL, data => nouns = data);
 
 const constructorsURL = "https://thosgood.com/categorical-translation/json/constructors.json";
 var constructors;
-$.getJSON(nounsURL, data => constructors = data);
+$.getJSON(constructorsURL, data => constructors = data);
 
 // Clear all search inputs.
 $(document).ready(function() {
@@ -19,7 +19,7 @@ $(document).ready(function() {
 translateInput.keyup(function() {
   var searchValue = $(this).val();
   var language = $(this).attr('id');
-    
+
   if ( searchValue === '' ) {
     resultsHTML.html('');
     return;
@@ -45,12 +45,12 @@ translateInput.keyup(function() {
 
     // For every noun with a translation into this language, check to see if it
     // matches the input.
-    Object.keys(nouns).map(nounHash => {
-      if ( typeof nouns[nounHash]['root'][language] !== 'undefined' ) {
-        var atom = nouns[nounHash]['root'][language]['atom'];
+    Object.keys(nouns).map(nounBase => {
+      if ( typeof nouns[nounBase]['root'][language] !== 'undefined' ) {
+        var atom = nouns[nounBase]['root'][language]['atom'];
         if (atom === input) {
           parsedInput[index]['type'] = 'noun';
-          parsedInput[index]['base'] = nounHash;
+          parsedInput[index]['base'] = nounBase;
           parsedInput[index]['adjs'] = [];
           inputAdded = true;
         }
@@ -74,29 +74,29 @@ translateInput.keyup(function() {
   // This is done by getting all the adjectives linked to the noun, and then
   // searching for them in the input, working outwards from the noun, and using
   // the 'pstn' key of each adjective.
-  // 
+  //
   // When we've done this, we put all the linked adjectives into a list in the
   // noun, since a noun with a bunch of adjectives is just, in particular,
   // another noun.
   parsedInput.forEach(function(item, index) {
     if (item['type'] === 'noun') {
-      var nounHash = item['base'];
-      var adjectives = nouns[nounHash]['adjs'];
+      var nounBase = item['base'];
+      var adjectives = nouns[nounBase]['adjs'];
       var befores = [];
       var afters = [];
 
       // Go through all adjectives linked to the noun.
-      Object.keys(adjectives).map(adjectiveHash => {
+      Object.keys(adjectives).map(adjectiveBase => {
         // Select those that have a translation in our language, and then build
         // the lists of possible adjectives before or after (resp.) our noun.
-        var currentAdjective = adjectives[adjectiveHash][language]
+        var currentAdjective = adjectives[adjectiveBase][language]
         if ( typeof currentAdjective !== 'undefined' ) {
           switch ( currentAdjective['pstn'] ) {
             case 'before':
-              befores.push({'atom': currentAdjective['atom'], 'base': adjectiveHash});
+              befores.push({'atom': currentAdjective['atom'], 'base': adjectiveBase});
               break;
             case 'after':
-              afters.push({'atom': currentAdjective['atom'], 'base': adjectiveHash});
+              afters.push({'atom': currentAdjective['atom'], 'base': adjectiveBase});
               break;
             default:
               break;
@@ -158,7 +158,7 @@ translateInput.keyup(function() {
       // adjectives with a toDelete bool (after having added them to the list of
       // adjectives), and then dropping all such objects at the end. Note,
       // however, that this means that we can't use a while loop this time.
-      // 
+      //
       // j is the number of words skipped (i.e. the gap between the noun and
       // where we end our string);
       // i is the length of the string (in words).
@@ -187,7 +187,7 @@ translateInput.keyup(function() {
           break;
         }
       }
-      
+
 
     } // END if (item['type'] === 'noun')
   }); // END parsedInput.forEach(function(item, index)
@@ -195,7 +195,7 @@ translateInput.keyup(function() {
   // Now delete any items marked for deletion in the searching of adjectives
   // that come before nouns.
   parsedInput = parsedInput.filter(item => !item['toDelete']);
-  
+
   // END STEP 2.
 
 
@@ -214,6 +214,36 @@ translateInput.keyup(function() {
 
   // STEP 3.
   // TODO: sentence constructors.
+  // TODO: this will be more regexing than exact searching, right?
+  // e.g. (let . be .) should be a regex and we should check that the two matches
+  // (the arguments) are both of the right type
+
+  var constructorRegexes = []
+  Object.keys(constructors).map(consBase => {
+    var cons = constructors[consBase][language];
+    // BUILD A REGEX WHERE WE REPLACE THE ☐ BY .* (???) (THIS SHOULD BE TYPED!)
+    //
+    // LOOK FOR ANY ARROWS IN THE TYPE
+    // THEN LOOK FOR WHAT IS DIRECTLY LEFT OF THEM
+    // THIS IS THE TYPE OF THE GAPS
+    // 
+    // SOMEHOW FILL IN THE CONSTRUCTOR
+      // think about "let $X$ be a finite group"
+        // this is easy if "a" binds first, but tricky if "let ☐ be ☐" tries to
+        // generally, we want things with 'final type' equal to n to bind first
+    // 
+    // NOW REMOVE THESE ARROWS AND CHARACTERS FROM THE TYPE
+    // 
+    // NOW REMOVE ANY SQUARE TENSOR SYMBOLS THAT HAVE ONLY EMPTY BRACKETS ()
+    // EITHER SIDE
+    // 
+    // NOW REMOVE ANY EMPTY BRACKETS INCLUDING NESTED ONES LIKE (()) OR (()())
+    // 
+    // WHAT IS LEFT IS THE TYPE OF THE cons WHEN ALL ARGUMENTS WE HAVE HAVE BEEN
+    // APPLIED
+    console.log(cons);
+    regex = new RegExp('');
+  });
 
   // END STEP 3.
 
