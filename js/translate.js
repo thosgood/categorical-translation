@@ -1,10 +1,13 @@
 const nounsURL = "https://thosgood.com/categorical-translation/json/nouns.json";
+const constructorsURL = "https://thosgood.com/categorical-translation/json/constructors.json";
 
 const translateInput = $('input.translateInput');
 const resultsHTML = $('#results');
 
 var nouns;
 $.getJSON(nounsURL, data => nouns = data);
+var constructors;
+$.getJSON(nounsURL, data => constructors = data);
 
 // Clear all search inputs.
 $(document).ready(function() {

@@ -3,4 +3,8 @@
     "EN": { "atom": "let ☐ be ☐", "type": "s((v←)⊠(n←))" },
     "FR": { "atom": "soit", "type": "s((n←)(v←))" }
   },
+  "☐⇒☐": {
+    "EN": { "atom": "if ☐ then ☐", "type": "s((s←)⊠(s←))" },
+    "FR": { "atom": "si ☐ alors ☐", "type": "s((s←)⊠(s←))" }
+  }
 }
