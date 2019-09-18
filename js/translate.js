@@ -227,8 +227,6 @@ translateInput.keyup(function() {
         sTypeCons.push(cons[language]);
         break;
     }
-    console.log(nTypeCons);
-    console.log(sTypeCons);
   });
 
     // BUILD A REGEX WHERE WE REPLACE THE ☐ BY .* (???) (THIS SHOULD BE TYPED!)
