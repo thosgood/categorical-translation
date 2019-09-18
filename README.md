@@ -5,6 +5,8 @@
 #### Next on my list
 
 - how are you going to deal with 'of finite type' ?
+- update the individual languages to JSON
+    + or don't bother, and work out how to generate them from `nouns.json` etc.
 
 #### Theory
 
