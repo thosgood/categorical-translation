@@ -106,8 +106,10 @@ translateInput.keyup(function() {
           break;
         }
       }
-      // As above, but for words coming after.
+      // As above, but for adjectives coming after the noun.
       // TODO: make this work for 'of finite type'!
+        // THIS WILL probably need something greedy, and so force us to rewrite
+        // this part of the code
       for ( i = 1; i < (parsedInput.length - index); i++ ) {
         afters.forEach(function(after) {
           if ( parsedInput[index+i]['input'] === after['atom'] ) {
