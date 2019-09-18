@@ -4,7 +4,6 @@
 
 #### Next on my list
 
-- how are you going to deal with 'of finite type' ?
 - update the individual languages to JSON
     + or don't bother, and work out how to generate them from `nouns.json` etc.
 
@@ -30,6 +29,9 @@
 
 #### Implementation
 
+- adjectives referring to the same noun but with `and` between
+- speed will eventually become a problem, i guess
+    + might want to start separating out `parsedInput` into nouns, adjectives, constructors etc as we go, so that we don't have to iterate through all items every single time
 - some input that can 'guess' the language (look at very early commits to see something like this)
 - generating files from some user-editable dictionary
     + this should also generate the functors

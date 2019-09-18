@@ -50,6 +50,7 @@ translateInput.keyup(function() {
         if (atom === input) {
           parsedInput[index]['type'] = 'noun';
           parsedInput[index]['base'] = nounHash;
+          parsedInput[index]['adjs'] = [];
           inputAdded = true;
         }
       }
@@ -61,6 +62,8 @@ translateInput.keyup(function() {
     }
   });
 
+  // END STEP 1.
+
 
 
   // STEP 2.
@@ -70,6 +73,10 @@ translateInput.keyup(function() {
   // This is done by getting all the adjectives linked to the noun, and then
   // searching for them in the input, working outwards from the noun, and using
   // the 'pstn' key of each adjective.
+  // 
+  // When we've done this, we put all the linked adjectives into a list in the
+  // noun, since a noun with a bunch of adjectives is just, in particular,
+  // another noun.
   parsedInput.forEach(function(item, index) {
     if (item['type'] === 'noun') {
       var nounHash = item['base'];
@@ -96,77 +103,99 @@ translateInput.keyup(function() {
         }
       });
 
+      // TODO: refactor the befores/afters code below, because it's basically
+      // the same for both
+
       // Now for some greedy adjective searching.
-      // 
-      // Look at the entire string before our noun to see if it matches an
-      // adjective of that noun with a translation in our language. If it does,
-      // then compress it down to a single entry in parsedInput. If not, then
-      // look at the entire string minus the first word, and do the same.
-      // Continue doing this until we find a match (if any). If we do, then now
-      // look at the entire string before the noun *minus the word just before
-      // the noun*. If this word (just before the noun) is an adjective *that is
-      // linked to our noun*, then carry on recursively. If it is *not*, then
-      // break.
-      // 
-      // ? ? ? ? n  ->  no match
-      // x ? ? ? n  ->  no match
-      // x x ? ? n  ->  match!
-      // ? ? (a) n  ->  no match
-      // x ? (a) n  ->  no match
-      // ? x (a) n  ->  break here: this word can't be linked to our noun
-      // 
-      // (j-1) is the 'gap' between our noun and the preceding string;
-      // i is the index from which our preceding string starts;
-      // that is, our totalBeforeIndex goes from i to (index-j), but .splice()
-      // is strict on the upper bound, so we need to do splice(i, index-j+1)
       //
-      // TODO: check for the myriad of possible (probable) off-by-one errors
-      for (var j = 1; j <= index; j++) {
-        for ( var i = 0; i <= index-1; i++ ) {
-          totalBeforeIndex = [];
-          Object.values(parsedInput.slice(i, index-j+1)).map(value => {
-            totalBeforeIndex.push(value['input']);
+      // For adjectives coming *after* the noun.
+      // While there are still words left after the noun ...
+      while ( parsedInput.length - index > 1 ) {
+        var adjFound = false;
+        // ... look at the next i words, starting with maximal i ...
+        for ( var i = parsedInput.length - index + 1; i >= 1; i--) {
+          var totalAfterIndex = [];
+          // ... stick them all together ...
+          Object.values(parsedInput.slice(index+1, index+i)).map(value => {
+            totalAfterIndex.push(value['input']);
           });
-          befores.forEach(function(before) {
-            if ( totalBeforeIndex.join(' ') === before['atom'] ) {
-              result = {};
-              result['input'] = totalBeforeIndex.join(' ');
+
+          afters.forEach(function(after) {
+            // ... check to see if this matches any known adjective ...
+            if ( totalAfterIndex.join(' ') === after['atom'] ) {
+              var result = {};
+              result['input'] = totalAfterIndex.join(' ');
               result['type'] = 'adjective';
-              result['base'] = before['base'];
-              result['link'] = index;
-              parsedInput.splice(i, index-j+1-i, result);
+              result['base'] = after['base'];
+              // ... if it does, then add it to the list of adjectives linked
+              // to the noun ...
+              parsedInput[index]['adjs'].push(result);
+              // ... and then delete it from its original location in
+              // parsedInput.
+              parsedInput.splice(index+1, i-1);
+
+              adjFound = true;
             }
           });
         }
-        if ( j >= 1 && typeof parsedInput[index-j] !== 'undefined' && parsedInput[index-j]['link'] != index ) {
+        // Now, if we *did* find some adjective, then start looking at what's
+        // still left after our noun, having removed what we just found. If,
+        // however, we did *not* find any adjective, then stop, because we only
+        // care about unbroken chains of adjectives (i.e. the moment there is
+        // some word that isn't an adjective, we know that anything after it
+        // also can't be an adjective (linked to this noun)).
+        if ( !adjFound ) {
           break;
         }
       }
 
-      // As above, but for adjectives coming *after* the noun.
-      for (var j = 1; j <= parsedInput.length - index + 1; j++) {
-        for ( var i = parsedInput.length - index + j; i >= 1; i-- ) {
-          totalAfterIndex = [];
-          Object.values(parsedInput.slice(index+j, index+i)).map(value => {
-            totalAfterIndex.push(value['input']);
+      // Now for adjectives coming *before* the noun.
+      // Here we have to work slightly differently, because if we remove any
+      // found adjectives, then the value of index won't match up with the new
+      // value of the index of our noun, because we'd be removing elements
+      // *before* our noun. We get around this by simply marking the found
+      // adjectives with a toDelete bool (after having added them to the list of
+      // adjectives), and then dropping all such objects at the end. Note,
+      // however, that this means that we can't use a while loop this time.
+      // 
+      // j is the number of words skipped (i.e. the gap between the noun and
+      // where we end our string);
+      // i is the length of the string (in words).
+      for ( var j = 0; j <= index - 1; j++) {
+        var adjFound = false;
+        for (var i = 0; i <= index - 1 - j; i++) {
+          var totalBeforeIndex = [];
+          Object.values(parsedInput.slice(i, index-j)).map(value => {
+            totalBeforeIndex.push(value['input']);
           });
-          afters.forEach(function(after) {
-            if ( totalAfterIndex.join(' ') === after['atom'] ) {
-              result = {};
-              result['input'] = totalAfterIndex.join(' ');
+          befores.forEach(function(before) {
+            if ( totalBeforeIndex.join(' ') === before['atom'] ) {
+              var result = {};
+              result['input'] = totalBeforeIndex.join(' ');
               result['type'] = 'adjective';
-              result['base'] = after['base'];
-              result['link'] = index;
-              parsedInput.splice(index+j, i-j, result);
+              result['base'] = before['base'];
+              parsedInput[index]['adjs'].push(result);
+              Object.values(parsedInput.slice(i, index-j)).map(value => {
+                value['toDelete'] = true;
+              });
+              adjFound = true;
             }
           });
         }
-        if (typeof parsedInput[index+j] !== 'undefined' && parsedInput[index+j]['link'] != index ) {
+        if ( !adjFound ) {
           break;
         }
       }
-    }
-  });
+      
+
+    } // END if (item['type'] === 'noun')
+  }); // END parsedInput.forEach(function(item, index)
+
+  // Now delete any items marked for deletion in the searching of adjectives
+  // that come before nouns.
+  parsedInput = parsedInput.filter(item => !item['toDelete']);
+  
+  // END STEP 2.
 
 
 
