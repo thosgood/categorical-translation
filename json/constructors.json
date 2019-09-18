@@ -6,5 +6,9 @@
   "☐⇒☐": {
     "EN": { "atom": "if ☐ then ☐", "type": "s((s←)⊠(s←))" },
     "FR": { "atom": "si ☐ alors ☐", "type": "s((s←)⊠(s←))" }
+  },
+  "ε": {
+    "EN": { "atom": "a", "type": "nn←" },
+    "FR": { "atom": "un", "type": "nn←" }
   }
 }

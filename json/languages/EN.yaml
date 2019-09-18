@@ -51,6 +51,6 @@ constructors:
   - { atom: the
     , type: n₀n←
     , base: ɩ }
-  - { atom: an
+  - { atom: a
     , type: n₁n←
     , base: ε }

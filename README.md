@@ -16,6 +16,10 @@
 - pluralisation rules
     + nouns _and_ their adjectives
     + will also have to deal similarly with verb conjugation
+    + e.g. a vs. an
+        * something like `"atom": { "next.first=vowel": "an", "next.first!=vowel": "a" }` ?
+    + gender!
+        * something like `"atom": { "next.gender=m": "un", "next.gender=f": "une" }` ?
 - typing of "and" etc.
     + more generally/separately, polymorphic types
 - synonyms (e.g. Hausdorff and separated)

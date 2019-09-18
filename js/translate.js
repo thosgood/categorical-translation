@@ -4,6 +4,7 @@ const resultsHTML = $('#results');
 const nounsURL = "https://thosgood.com/categorical-translation/json/nouns.json";
 var nouns;
 $.getJSON(nounsURL, data => nouns = data);
+
 const constructorsURL = "https://thosgood.com/categorical-translation/json/constructors.json";
 var constructors;
 $.getJSON(nounsURL, data => constructors = data);
@@ -199,13 +200,29 @@ translateInput.keyup(function() {
 
 
 
+  // STEP 2.5
+  // Abstract variables.
+  parsedInput.forEach(function(item, index) {
+    var string = item['input'];
+    if ( string.charAt(0) == '$' && string.charAt(string.length-1) == '$' ) {
+      item['type'] = 'variable';
+    }
+  });
+  // END STEP 2.5.
+
+
+
   // STEP 3.
   // TODO: sentence constructors.
+
+  // END STEP 3.
 
 
 
   // STEP 4.
   // TODO: do the translation!
+
+  // END STEP 4.
 
 
 
@@ -217,4 +234,6 @@ translateInput.keyup(function() {
   //   if ( currentInput['id'] !== language ) {
   //   }
   // }
+
+  // END STEP 5.
 });
