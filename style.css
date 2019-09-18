@@ -1,17 +1,22 @@
 div#container{
-  width: 500px;
+  width: 800px;
   position: absolute;
-  top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%);
+  transform: translate(-50%);
 }
 
 ul#inputs {
   margin: 0;
   padding: 0;
   list-style: none;
-  width: 100%;
+  width: 45%;
+  float: left;
+}
+
+pre#results {
+  width: 50%;
+  float: right;
 }
 
 ul#inputs li {
