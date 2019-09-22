@@ -1,5 +1,5 @@
 {
-  "η☐☐": {
+  "η": {
     "fullType": "s",
     "EN": {
       "atom": "let # be #",
@@ -12,7 +12,7 @@
       "argsType": "v,n"
     }
   },
-  "☐⇒☐": {
+  "#⇒#": {
     "fullType": "s",
     "EN": {
       "atom": "if # then #",
@@ -48,6 +48,19 @@
       "atom": "le",
       "type": "n₀n←",
       "argsType": "n"
+    }
+  },
+  "#⋀#": {
+    "fullType": "s",
+    "EN": {
+      "atom": "and",
+      "type": "s((s←)⊠(s←))",
+      "argsType": "s,s"
+    },
+    "FR": {
+      "atom": "et",
+      "type": "s((s←)⊠(s←))",
+      "argsType": "s,s"
     }
   }
 }

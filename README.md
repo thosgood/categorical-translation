@@ -11,6 +11,8 @@
 
 - in the implementation i don't think we care about `type`, but only `argsType` and `fullType` (which of course can be recovered from `type`, but it's so much easier to do this step manually)
     + eventually this can be automated
+- how can we type things so that "let $X$ be this and $Y$ be that" checks out
+    + i.e. avoiding "let $X$ be this and let $Y$ be that"
 - to describe a noun we should give the base + a list of any adjectives (in base form)
     + for example, a 'finite abelian group' would be described as `0677022e[08b70280,0b0e02cd]`
 - rewrite "soit ☐ ☐/let ☐ be ☐" to be "let ☐ be **such that**"?
