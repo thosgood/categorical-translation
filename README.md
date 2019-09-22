@@ -4,6 +4,7 @@
 
 #### Next on my list
 
+- **why does this not work offline?!**
 - update the individual languages to JSON
     + or don't bother, and work out how to generate them from `nouns.json` etc.
 
