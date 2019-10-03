@@ -5,6 +5,7 @@
 #### Next on my list
 
 - **why does this not work offline?!**
+- switch to [Dhall](https://github.com/dhall-lang/dhall-lang) ?!
 - update the individual languages to JSON
     + or don't bother, and work out how to generate them from `nouns.json` etc.
 
