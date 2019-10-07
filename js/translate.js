@@ -232,8 +232,15 @@ translateInput.keyup(function() {
   // TODO nTypeCons should (?) come first
 
   sTypeCons.forEach(function(item, index) {
-    string = item['atom'].replace(/#/g,'(.*?)');
-    console.log(string);
+    var numOfArgs =  item['atom'].split("#").length - 1;
+    var regexString = item['atom'];
+    for ( var i = 1; i < numOfArgs; i++) {
+      regexString = regexString.replace(/#/,'(.*?)');
+    }
+    regexString = regexString.replace(/#/,'(.*)');
+    var re = new RegExp(regexString, 'gi');
+    console.log(searchValue.replace(re, `(${item['atom']}: ($1) ($2))`));
+    // TODO: we actually want the last # to be a greedy search!
   });
 
     // BUILD A REGEX WHERE WE REPLACE THE ☐ BY .* (???) (THIS SHOULD BE TYPED!)

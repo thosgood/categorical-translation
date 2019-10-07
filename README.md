@@ -52,6 +52,7 @@
 - bases for nouns are Adler-32 hashes of the English name; we need
     + collision checking
     + some local version of the hash script
+- capital letters in e.g. German is going to mean we can't use case-insensitive regexes... ugh
 
 ### Things to read
 
