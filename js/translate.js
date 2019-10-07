@@ -232,39 +232,22 @@ translateInput.keyup(function() {
   // TODO nTypeCons should (?) come first
 
   sTypeCons.forEach(function(item, index) {
-    var numOfArgs =  item['atom'].split("#").length - 1;
-    var regexString = item['atom'];
-    for ( var i = 1; i < numOfArgs; i++) {
-      regexString = regexString.replace(/#/,'(.*?)');
-    }
-    regexString = regexString.replace(/#/,'(.*)');
-    var re = new RegExp(regexString, 'gi');
-    console.log(searchValue.replace(re, `(${item['atom']}: ($1) ($2))`));
-    // TODO: we actually want the last # to be a greedy search!
+    var regexString = item['atom'].replace(/#/g,'(.*)');
+    var re = new RegExp(regexString, 'g');
+    // 1. Make a list of all the $numOfArgs matches of re with searchValue
+    console.log(re.exec(searchValue));
+    console.log(re.exec(searchValue));
+    // TODO: solve this with a loop!
+    // 2. Check to see if they are of the right type
+    //   2i. If not... ?!
+    //   2ii. If they are, then update the parsedInput:
+    //     2iia. Add _something_ with item's fullType as its type, and the atom
+    //     2iib. Add each of the matches (matched from parsedInput!)
+    //     2iic. Mark all copied entries as toDelete
+    //     2iid. Delete all things marked as toDelete
   });
 
-    // BUILD A REGEX WHERE WE REPLACE THE ☐ BY .* (???) (THIS SHOULD BE TYPED!)
-    //
-    // LOOK FOR ANY ARROWS IN THE TYPE
-    // THEN LOOK FOR WHAT IS DIRECTLY LEFT OF THEM
-    // THIS IS THE TYPE OF THE GAPS
-    // 
-    // SOMEHOW FILL IN THE CONSTRUCTOR
-      // think about "let $X$ be a finite group"
-        // this is easy if "a" binds first, but tricky if "let ☐ be ☐" tries to
-        // generally, we want things with 'final type' equal to n to bind first
-    // 
-    // NOW REMOVE THESE ARROWS AND CHARACTERS FROM THE TYPE
-    //
-    // !! THE BELOW MIGHT NOT BE NEEDED THANKS TO fullType !!
-    // 
-    // NOW REMOVE ANY SQUARE TENSOR SYMBOLS THAT HAVE ONLY EMPTY BRACKETS ()
-    // EITHER SIDE
-    // 
-    // NOW REMOVE ANY EMPTY BRACKETS INCLUDING NESTED ONES LIKE (()) OR (()())
-    // 
-    // WHAT IS LEFT IS THE TYPE OF THE cons WHEN ALL ARGUMENTS WE HAVE HAVE BEEN
-    // APPLIED
+  // TODO: make things work for 'foo and bar and baz'
 
   // END STEP 3.
 

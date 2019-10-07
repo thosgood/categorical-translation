@@ -39,6 +39,9 @@
 
 #### Implementation
 
+- should be able to manually insert brackets into the thing to be translated and have them respected
+    + should be as 'simple' as just running the script not on the whole input, but on the most nested parts of the sentences first, and then working outwards
+    + **definitely want to at least split on full stops, for example**
 - adjectives referring to the same noun but with `and` between
 - speed will eventually become a problem, i guess
     + might want to start separating out `parsedInput` into nouns, adjectives, constructors etc as we go, so that we don't have to iterate through all items every single time
