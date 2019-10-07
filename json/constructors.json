@@ -53,12 +53,12 @@
   "#⋀#": {
     "fullType": "s",
     "EN": {
-      "atom": "and",
+      "atom": "# and #",
       "type": "s((s←)⊠(s←))",
       "argsType": "s,s"
     },
     "FR": {
-      "atom": "et",
+      "atom": "# et #",
       "type": "s((s←)⊠(s←))",
       "argsType": "s,s"
     }

@@ -229,6 +229,13 @@ translateInput.keyup(function() {
     }
   });
 
+  // TODO nTypeCons should (?) come first
+
+  sTypeCons.forEach(function(item, index) {
+    string = item['atom'].replace(/#/g,'(.*?)');
+    console.log(string);
+  });
+
     // BUILD A REGEX WHERE WE REPLACE THE ☐ BY .* (???) (THIS SHOULD BE TYPED!)
     //
     // LOOK FOR ANY ARROWS IN THE TYPE
