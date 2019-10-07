@@ -231,24 +231,60 @@ translateInput.keyup(function() {
   });
 
   nTypeCons.forEach(function(item, index) {
-    var constructorAtom = item['atom']
+    var parsedConstructor = item['atom']
     var numOfArgs = item['argsType'].split(',').length;
     if ( !item['atom'].includes('#') ) {
       // By convention, if all of the arguments of a constructor are on the
       // right, then we don't have to write in all the #s. This just adds them
       // in if it sees that there are none.
       var toAppend = Array(numOfArgs).fill(' #');
-      constructorAtom = constructorAtom + (toAppend.join(''));
+      parsedConstructor = parsedConstructor + (toAppend.join(''));
     }
-    constructorAtom = constructorAtom.split(' ');
-    
-    console.log(constructorAtom);
+    parsedConstructor = parsedConstructor.split(' ');
 
-    constructorAtom.forEach(function(word,pos) {
-      if ( word !== '#' ) {
-        console.log(word);
+    var firstPositioned = null;
+
+    parsedConstructor.forEach(function(cItem, cIndex) {
+      // For every non-# word in the constructor ...
+      if ( cItem !== '#' ) {
+        // ... find out where it occurs in the parsedInput tree ...
+        parsedInput.forEach(function(pItem, pIndex) {
+          if ( pItem['input'] == cItem ) {
+            parsedConstructor[cIndex] = {};
+            parsedConstructor[cIndex]['atom'] = cItem;
+            parsedConstructor[cIndex]['position'] = pIndex;
+            if (!firstPositioned) {
+              // ... and, for the first word that we locate, make a note of
+              //   (1) where it is within the parsedInput tree, and
+              //   (2) where it is within the parsedConstructor list
+              // by just keeping a record of their difference (the offset is all
+              // that we care about here)
+              firstPositioned = pIndex - cIndex;
+            }
+          }
+        });
       }
-    })
+    });
+
+    for ( var i = 1; i <= numOfArgs; i++ ) {
+      // For every # in the constructor, find out what type it represents, by
+      // looking at the argsType
+      var firstHashPosition = parsedConstructor.indexOf('#');
+      parsedConstructor[firstHashPosition] = {};
+      parsedConstructor[firstHashPosition]['type'] = item['argsType'].split(',')[i-1];
+    }
+
+    parsedConstructor.forEach(function(cItem, cIndex) {
+      // Now, for every item in the parsedConstructor list that does *not* have
+      // a position (i.e. every #), we calculate what position within the
+      // parsedInput tree it corresponds to by seeing where it lies with respect
+      // to our firstPositioned variable.
+      if ( !cItem['position'] && firstPositioned ) {
+        cItem['position'] = firstPositioned + cIndex;
+      }
+    });
+
+    console.log(parsedConstructor);
   });
 
   // TODO: make things work for e.g. 'foo and bar and baz'
