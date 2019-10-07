@@ -16,6 +16,7 @@ $(document).ready(function() {
 
 // At the moment, everything happens every single time the user enters a new
 // character into the input.
+// TODO: change this to be a minimum of 0.1 seconds or something, just for now
 translateInput.keyup(function() {
   var searchValue = $(this).val();
   var language = $(this).attr('id');
@@ -229,25 +230,28 @@ translateInput.keyup(function() {
     }
   });
 
-  // TODO nTypeCons should (?) come first
+  nTypeCons.forEach(function(item, index) {
+    var constructorAtom = item['atom']
+    var numOfArgs = item['argsType'].split(',').length;
+    if ( !item['atom'].includes('#') ) {
+      // By convention, if all of the arguments of a constructor are on the
+      // right, then we don't have to write in all the #s. This just adds them
+      // in if it sees that there are none.
+      var toAppend = Array(numOfArgs).fill(' #');
+      constructorAtom = constructorAtom + (toAppend.join(''));
+    }
+    constructorAtom = constructorAtom.split(' ');
+    
+    console.log(constructorAtom);
 
-  sTypeCons.forEach(function(item, index) {
-    var regexString = item['atom'].replace(/#/g,'(.*)');
-    var re = new RegExp(regexString, 'g');
-    // 1. Make a list of all the $numOfArgs matches of re with searchValue
-    console.log(re.exec(searchValue));
-    console.log(re.exec(searchValue));
-    // TODO: solve this with a loop!
-    // 2. Check to see if they are of the right type
-    //   2i. If not... ?!
-    //   2ii. If they are, then update the parsedInput:
-    //     2iia. Add _something_ with item's fullType as its type, and the atom
-    //     2iib. Add each of the matches (matched from parsedInput!)
-    //     2iic. Mark all copied entries as toDelete
-    //     2iid. Delete all things marked as toDelete
+    constructorAtom.forEach(function(word,pos) {
+      if ( word !== '#' ) {
+        console.log(word);
+      }
+    })
   });
 
-  // TODO: make things work for 'foo and bar and baz'
+  // TODO: make things work for e.g. 'foo and bar and baz'
 
   // END STEP 3.
 

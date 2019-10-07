@@ -39,6 +39,9 @@
 
 #### Implementation
 
+- at the moment i think we just assume that all constructors take two arguments...
+- constructors should be **checked** to see that the length of `argTypes` is equal to the number of #s (if the latter is non-zero)
+    + this might be a **lot** easier in Dhall?
 - should be able to manually insert brackets into the thing to be translated and have them respected
     + should be as 'simple' as just running the script not on the whole input, but on the most nested parts of the sentences first, and then working outwards
     + **definitely want to at least split on full stops, for example**
