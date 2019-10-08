@@ -231,10 +231,15 @@ translateInput.keyup(function() {
   });
 
   nTypeCons.forEach(function(item, index) {
+    // parsedReplacement will be what we build to eventually replace the basic
+    // entry of our constructor in parsedInput
     var parsedReplacement = {};
     parsedReplacement['atom'] = item['atom'];
     parsedReplacement['type'] = `(constructor). ${item['type']}`;
     
+    // parsedConstructor is sort of a bridge towards building parsedReplacement
+    // and I'm sure that we don't really need it...
+    // ...but this is all one big hack anyway, so who cares :)
     var parsedConstructor = item['atom']
     var numOfArgs = item['argsType'].split(',').length;
 
@@ -264,8 +269,7 @@ translateInput.keyup(function() {
               //   (2) where it is within the parsedConstructor list
               // by just keeping a record of their difference (the offset is all
               // that we care about here)
-              firstPositioned = pIndex - cIndex;
-            }
+              firstPositioned = pIndex - cIndex;            }
           }
         });
       }
@@ -284,7 +288,7 @@ translateInput.keyup(function() {
       // a position (i.e. every #), we calculate what position within the
       // parsedInput tree it corresponds to by seeing where it lies with respect
       // to our firstPositioned variable.
-      if ( !cItem['position'] && firstPositioned ) {
+      if ( !cItem['position'] && typeof(firstPositioned) !== null ) {
         cItem['position'] = firstPositioned + cIndex;
       }
     });
@@ -294,38 +298,18 @@ translateInput.keyup(function() {
     parsedConstructor.forEach(function(cItem, cIndex) {
       if ( cItem['type'] && cItem['position'] ) {
         var correspondingItem = parsedInput[cItem['position']];
-        if (correspondingItem) {
-          switch ( cItem['type'] ) {
-            // TODO: this switch case is almost certainly redundant at the moment
-            case 'n':
-              if ( correspondingItem['type'] == 'noun' ) {
-                parsedReplacement['args'].push(correspondingItem);
-                correspondingItem['toDelete'] = true;
-                // TODO: why does this update the copied thing too?!?!
-              }
-              // If we wanted error messages, here we'd have:
-              //   console.log(`Mismatched types in application of ${cItem['atom']}.`);
-              break;
-            case 's':
-              if ( correspondingItem['type'] == 'sentence' ) {
-                parsedReplacement['args'].push(correspondingItem);
-              }
-              break;
-            case 'v':
-              if ( correspondingItem['type'] == 'variable' ) {
-                parsedReplacement['args'].push(correspondingItem);
-              }
-              break;
-          }
+        // TODO: the following line is a pretty nasty hack...
+        if ( correspondingItem && correspondingItem['type'][0] == cItem['type'] ) {
+          parsedReplacement['args'].push(correspondingItem);
+          parsedInput.splice(cItem['position'],1);
         }
       }
     });
 
     parsedInput[firstPositioned] = parsedReplacement;
-    parsedInput = parsedInput.filter(item => !item['toDelete']);
   });
 
-  // TODO: why doesn't this work when we have nothing before the constructor?!
+  // TODO: now for sTypeCons !
 
   // TODO: make things work for e.g. 'foo and bar and baz'
 
