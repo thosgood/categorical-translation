@@ -16,7 +16,13 @@ $(document).ready(function() {
 
 // At the moment, everything happens every single time the user enters a new
 // character into the input.
-// TODO: change this to be a minimum of 0.1 seconds or something, just for now
+// TODO: CHANGE THIS TO BE ON BUTTON PRESS
+//       this will (help) solve SO MANY THINGS e.g. binding in something like 
+//       'Let $X$ be a group and let $Y$ be a scheme', where we need 'and' to
+//       bind first, but because the parsedInput is generated on every keypress,
+//       everything before the and has already been bound
+//       but is this actually a problem? i can't tell any more
+//       i'm so confused
 translateInput.keyup(function() {
   var searchValue = $(this).val();
   var language = $(this).attr('id');
@@ -329,28 +335,19 @@ translateInput.keyup(function() {
             case 'variable':
               // TODO: rewrite this with something like `.element?`
               if ( correspondingItem['type'] == 'variable') {
-                parsedReplacement['args'].push(correspondingItem);
-                // TODO: this annoying toDelete bug (that the copied element changes
-                //       as well)
-                correspondingItem['toDelete'] = true;
+                parsedReplacement['args'].push(JSON.parse(JSON.stringify(correspondingItem)));
               }
               break;
             case 'noun':
               // TODO: rewrite this with something like `.element?`
               if ( correspondingItem['type'] == 'noun' || correspondingItem['type'] == 'variable') {
-                parsedReplacement['args'].push(correspondingItem);
-                // TODO: this annoying toDelete bug (that the copied element changes
-                //       as well)
-                correspondingItem['toDelete'] = true;
+                parsedReplacement['args'].push(JSON.parse(JSON.stringify(correspondingItem)));
               }
               break;
             case 'sentence':
               // TODO: rewrite this with something like `.element?`
               if ( correspondingItem['type'] == 'noun' || correspondingItem['type'] == 'noun' || correspondingItem['type'] == 'variable') {
-                parsedReplacement['args'].push(correspondingItem);
-                // TODO: this annoying toDelete bug (that the copied element changes
-                //       as well)
-                correspondingItem['toDelete'] = true;
+                parsedReplacement['args'].push(JSON.parse(JSON.stringify(correspondingItem)));
               }
               break;
           }
@@ -358,8 +355,10 @@ translateInput.keyup(function() {
       }
     });
 
+    console.log(parsedConstructor);
+
     parsedInput[firstPositioned] = parsedReplacement;
-    // parsedInput = parsedInput.filter(item => !item['toDelete']);
+    parsedInput.splice(firstPositioned+1, parsedReplacement['consAtom'].split(' ').length-1)
   });
 
   // TODO: make things work for e.g. 'foo and bar and baz'
