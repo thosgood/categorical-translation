@@ -231,8 +231,13 @@ translateInput.keyup(function() {
   });
 
   nTypeCons.forEach(function(item, index) {
+    var parsedReplacement = {};
+    parsedReplacement['atom'] = item['atom'];
+    parsedReplacement['type'] = `(constructor). ${item['type']}`;
+    
     var parsedConstructor = item['atom']
     var numOfArgs = item['argsType'].split(',').length;
+
     if ( !item['atom'].includes('#') ) {
       // By convention, if all of the arguments of a constructor are on the
       // right, then we don't have to write in all the #s. This just adds them
@@ -284,8 +289,43 @@ translateInput.keyup(function() {
       }
     });
 
-    console.log(parsedConstructor);
+    parsedReplacement['args'] = [];
+
+    parsedConstructor.forEach(function(cItem, cIndex) {
+      if ( cItem['type'] && cItem['position'] ) {
+        var correspondingItem = parsedInput[cItem['position']];
+        if (correspondingItem) {
+          switch ( cItem['type'] ) {
+            // TODO: this switch case is almost certainly redundant at the moment
+            case 'n':
+              if ( correspondingItem['type'] == 'noun' ) {
+                parsedReplacement['args'].push(correspondingItem);
+                correspondingItem['toDelete'] = true;
+                // TODO: why does this update the copied thing too?!?!
+              }
+              // If we wanted error messages, here we'd have:
+              //   console.log(`Mismatched types in application of ${cItem['atom']}.`);
+              break;
+            case 's':
+              if ( correspondingItem['type'] == 'sentence' ) {
+                parsedReplacement['args'].push(correspondingItem);
+              }
+              break;
+            case 'v':
+              if ( correspondingItem['type'] == 'variable' ) {
+                parsedReplacement['args'].push(correspondingItem);
+              }
+              break;
+          }
+        }
+      }
+    });
+
+    parsedInput[firstPositioned] = parsedReplacement;
+    parsedInput = parsedInput.filter(item => !item['toDelete']);
   });
+
+  // TODO: why doesn't this work when we have nothing before the constructor?!
 
   // TODO: make things work for e.g. 'foo and bar and baz'
 
