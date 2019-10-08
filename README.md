@@ -12,6 +12,7 @@
 #### Theory
 
 - `variable` should be a subtype of `noun`!
+    + and `noun` a subtype of `sentence`! (yikes)
 - in the implementation i don't think we care about `type`, but only `argsType` and `fullType` (which of course can be recovered from `type`, but it's so much easier to do this step manually)
     + eventually this can be automated
 - how can we type things so that "let $X$ be this and $Y$ be that" checks out
