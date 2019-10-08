@@ -4,7 +4,8 @@
 
 #### Next on my list
 
-- **why does this not work offline?!**
+- **IGNORE ALL THE PROBLEMS AND JUST GET SOME TRANSLATIONS ACTUALLY TRANSLATED**
+
 - switch to [Dhall](https://github.com/dhall-lang/dhall-lang) ?!
 - update the individual languages to JSON
     + or don't bother, and get around to working out how to generate them from `nouns.json` etc.
@@ -32,7 +33,7 @@
     + more generally/separately, polymorphic types
 - synonyms (e.g. Hausdorff and separated)
     + more subtle (language ones) too
-    + also, conversely, words with multiple meanings
+    + also, _conversely_, words with multiple meanings
 - what is the formal difference between things which have "obvious" bases and those that don't? e.g. "and" and "if ☐ then ☐" vs. "let ☐ be ☐" and "the"
 - guidelines/formatting rules/explanation of choices for base notation etc.
     + e.g. we assume that atoms attach to the right, so we include ☐ only if this is not the case; if we include one ☐ then we include all of them, even those that _do_ sit on the right
