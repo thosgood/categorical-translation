@@ -232,6 +232,7 @@ translateInput.keyup(function() {
     // TODO: OH NO IT'S ANOTHER HACK
     var temp = cons[language];
     temp['base'] = consBase;
+    temp['argsType'] = cons['argsType'];
     switch (cons['fullType'].charAt(0)) {
       case 'n':
         temp['fullType'] = 'n';
@@ -356,8 +357,6 @@ translateInput.keyup(function() {
         }
       }
     });
-
-    console.log(parsedConstructor);
 
     parsedInput[firstPositioned] = parsedReplacement;
     parsedInput.splice(firstPositioned+1, parsedReplacement['consAtom'].split(' ').length-1)
