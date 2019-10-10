@@ -379,7 +379,7 @@ translateInput.keyup(function() {
   //         parsedInput.splice(firstPositioned+1, parsedReplacement['consAtom'].split(' ').length-1)
   // 
 
-  var baseTranslation = {};
+  var baseTranslation = '';
   var translations = {};
 
   function translateToBase(tree) {
@@ -415,6 +415,12 @@ translateInput.keyup(function() {
     return translation;
   }
 
+  parsedInput.forEach(function(item, index) {
+    // TODO: there's a nice javascript way of writing this, without the
+    //       weird callback faff
+    baseTranslation += translateToBase(JSON.stringify(item));
+  });
+
   for ( var i = 0; i < translateInput.length; i++ ) {
     currentInput = translateInput[i];
     currentLanguage = currentInput['id'];
@@ -423,7 +429,7 @@ translateInput.keyup(function() {
       parsedInput.forEach(function(item, index) {
         // TODO: there's a nice javascript way of writing this, without the
         //       weird callback faff
-        translations[currentLanguage] = translateToBase(JSON.stringify(item));
+        // translations[currentLanguage] = translateToBase(JSON.stringify(item));
       });
     }
   }
@@ -442,6 +448,7 @@ translateInput.keyup(function() {
 
   // STEP 5.
   // TODO: display things for the user.
+  $('#base').html(baseTranslation);
   resultsHTML.html(JSON.stringify(parsedInput, undefined, 2));
 
   for ( var i = 0; i < translateInput.length; i++ ) {
