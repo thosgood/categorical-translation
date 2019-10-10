@@ -379,6 +379,11 @@ translateInput.keyup(function() {
   //         parsedInput.splice(firstPositioned+1, parsedReplacement['consAtom'].split(' ').length-1)
   // 
 
+
+
+  // STEP 4.
+  // Actually doing the translations!
+
   var baseTranslation = '';
   var translations = {};
 
@@ -421,6 +426,39 @@ translateInput.keyup(function() {
     baseTranslation += translateToBase(JSON.stringify(item));
   });
 
+  function translateToLanguage(tree, language) {
+    translation = "";
+    if ( typeof(tree) !== 'object' ) {
+      tree = JSON.parse(tree);
+    }
+
+    switch (tree['type']) {
+      case 'variable':
+        translation += tree['input'];
+        break;
+      default:
+        translation += tree['base'];
+        break;
+    }
+
+    if ( typeof(tree['adjs']) != 'undefined' && tree['adjs'].length !== 0 ) {
+      tree['adjs'].forEach(function(item, index){
+        translation += '.';
+        translation += translateToBase(item);
+      });
+    }
+
+    if ( typeof(tree['args']) != 'undefined' && tree['args'].length !== 0 ) {
+      tree['args'].forEach(function(item, index){
+        translation += '(';
+        translation += translateToBase(item);
+        translation += ')';
+      });
+    }
+
+    return translation;
+  }
+
   for ( var i = 0; i < translateInput.length; i++ ) {
     currentInput = translateInput[i];
     currentLanguage = currentInput['id'];
@@ -429,16 +467,10 @@ translateInput.keyup(function() {
       parsedInput.forEach(function(item, index) {
         // TODO: there's a nice javascript way of writing this, without the
         //       weird callback faff
-        // translations[currentLanguage] = translateToBase(JSON.stringify(item));
+        translations[currentLanguage] = translateToLanguage(JSON.stringify(item),currentLanguage);
       });
     }
   }
-
-  // STEP 4.
-  // TODO: turn the tree into just some base sentence, e.g. 'Let $X$ be a scheme
-  //       of finite type' would become `η($X$⊠(08b50276.271a0557))`
-
-
 
   // TODO: use 'vari' to get the arguments in the right order
 
