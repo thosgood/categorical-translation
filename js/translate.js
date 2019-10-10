@@ -325,6 +325,8 @@ translateInput.keyup(function() {
 
     parsedReplacement['args'] = [];
 
+    var thingsAdded = 0;
+
     parsedConstructor.forEach(function(cItem, cIndex) {
       // It *should* be the case that only #s had types assigned to them...
       if ( cItem['type'] && cItem['position'] ) {
@@ -340,18 +342,21 @@ translateInput.keyup(function() {
               // TODO: rewrite this with something like `.element?`
               if ( correspondingItem['type'] == 'variable') {
                 parsedReplacement['args'].push(JSON.parse(JSON.stringify(correspondingItem)));
+                thingsAdded += 1;
               }
               break;
             case 'noun':
               // TODO: rewrite this with something like `.element?`
               if ( correspondingItem['type'] == 'noun' || correspondingItem['type'] == 'variable') {
                 parsedReplacement['args'].push(JSON.parse(JSON.stringify(correspondingItem)));
+                thingsAdded += 1;
               }
               break;
             case 'sentence':
               // TODO: rewrite this with something like `.element?`
               if ( correspondingItem['type'] == 'noun' || correspondingItem['type'] == 'noun' || correspondingItem['type'] == 'variable') {
                 parsedReplacement['args'].push(JSON.parse(JSON.stringify(correspondingItem)));
+                thingsAdded += 1;
               }
               break;
           }
@@ -359,13 +364,75 @@ translateInput.keyup(function() {
       }
     });
 
-    parsedInput[firstPositioned] = parsedReplacement;
-    parsedInput.splice(firstPositioned+1, parsedReplacement['consAtom'].split(' ').length-1)
+    if ( thingsAdded ) {
+      parsedInput[firstPositioned] = parsedReplacement;
+      parsedInput.splice(firstPositioned+1, parsedReplacement['consAtom'].split(' ').length-1)
+    }
   });
 
   // END STEP 3.
+  // 
+  // TODO: WHY does something like "group $X$" just break it? the moment it sees
+  //       a noun on its own I think it just stops??
+  //       
+  // NOTE: IT'S THE LINE
+  //         parsedInput.splice(firstPositioned+1, parsedReplacement['consAtom'].split(' ').length-1)
+  // 
 
   var baseTranslation = {};
+  var translations = {};
+
+  function translateToBase(tree) {
+    translation = "";
+    if ( typeof(tree) !== 'object' ) {
+      tree = JSON.parse(tree);
+    }
+
+    switch (tree['type']) {
+      case 'variable':
+        translation += tree['input'];
+        break;
+      case 'noun':
+        translation += tree['base'];
+        if (tree['adjs'].length !== 0) {
+          tree['adjs'].forEach(function(item, index){
+            translation += '.';
+            translation += translateToBase(item);
+          });
+        }
+        break;
+      case 'adjective':
+        translation += tree['base'];
+        break;
+      case 'constructor':
+        translation += tree['base'];
+        // if (tree['args']) {
+        //   translation += translateToBase(tree['args']);
+        // }
+        break;
+      case 'sentence':
+        translation += tree['base'];
+        // if (tree['args']) {
+        //   translation += translateToBase(tree['args']);
+        // }
+        break;
+    }
+
+    return translation;
+  }
+
+  for ( var i = 0; i < translateInput.length; i++ ) {
+    currentInput = translateInput[i];
+    currentLanguage = currentInput['id'];
+    translations[currentLanguage] = ""
+    if ( currentLanguage !== inputLanguage ) {
+      parsedInput.forEach(function(item, index) {
+        // TODO: there's a nice javascript way of writing this, without the
+        //       weird callback faff
+        translations[currentLanguage] = translateToBase(JSON.stringify(item));
+      });
+    }
+  }
 
   // STEP 4.
   // TODO: turn the tree into just some base sentence, e.g. 'Let $X$ be a scheme
@@ -387,7 +454,7 @@ translateInput.keyup(function() {
     currentInput = translateInput[i];
     currentLanguage = currentInput['id'];
     if ( currentLanguage !== inputLanguage ) {
-      currentInput.value = 'Test';
+      currentInput.value = translations[currentLanguage];
     }
   }
 
