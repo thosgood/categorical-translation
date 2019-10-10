@@ -252,6 +252,7 @@ translateInput.keyup(function() {
     parsedReplacement['consAtom'] = item['atom'];
     parsedReplacement['consType'] = item['type'];
     parsedReplacement['base'] = item['base'];
+    parsedReplacement['argsType'] = item['argsType'];
     switch (item['fullType']) {
       case 'n':
         parsedReplacement['type'] = 'noun';
