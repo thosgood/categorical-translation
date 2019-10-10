@@ -231,6 +231,7 @@ translateInput.keyup(function() {
     var cons = constructors[consBase];
     // TODO: OH NO IT'S ANOTHER HACK
     var temp = cons[language];
+    temp['base'] = consBase;
     switch (cons['fullType'].charAt(0)) {
       case 'n':
         temp['fullType'] = 'n';
@@ -248,7 +249,8 @@ translateInput.keyup(function() {
     // entry of our constructor in parsedInput
     var parsedReplacement = {};
     parsedReplacement['consAtom'] = item['atom'];
-    parsedReplacement['consType'] = `${item['type']}`;
+    parsedReplacement['consType'] = item['type'];
+    parsedReplacement['base'] = item['base'];
     switch (item['fullType']) {
       case 'n':
         parsedReplacement['type'] = 'noun';
@@ -361,8 +363,6 @@ translateInput.keyup(function() {
     parsedInput.splice(firstPositioned+1, parsedReplacement['consAtom'].split(' ').length-1)
   });
 
-  // TODO: make things work for e.g. 'foo and bar and baz'
-
   // END STEP 3.
 
 
@@ -370,6 +370,9 @@ translateInput.keyup(function() {
   // STEP 4.
   // TODO: turn the tree into just some base sentence, e.g. 'Let $X$ be a scheme
   //       of finite type' would become `η($X$⊠(08b50276.271a0557))`
+  //       
+  // TODO: _how do you deal with inferring the order of the arguments ?_ e.g.
+  //       η **swaps** order between EN and FR
 
   // END STEP 4.
 
