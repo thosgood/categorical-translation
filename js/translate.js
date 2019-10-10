@@ -392,30 +392,24 @@ translateInput.keyup(function() {
       case 'variable':
         translation += tree['input'];
         break;
-      case 'noun':
-        translation += tree['base'];
-        if (tree['adjs'].length !== 0) {
-          tree['adjs'].forEach(function(item, index){
-            translation += '.';
-            translation += translateToBase(item);
-          });
-        }
-        break;
-      case 'adjective':
+      default:
         translation += tree['base'];
         break;
-      case 'constructor':
-        translation += tree['base'];
-        // if (tree['args']) {
-        //   translation += translateToBase(tree['args']);
-        // }
-        break;
-      case 'sentence':
-        translation += tree['base'];
-        // if (tree['args']) {
-        //   translation += translateToBase(tree['args']);
-        // }
-        break;
+    }
+
+    if ( typeof(tree['adjs']) != 'undefined' && tree['adjs'].length !== 0 ) {
+      tree['adjs'].forEach(function(item, index){
+        translation += '.';
+        translation += translateToBase(item);
+      });
+    }
+
+    if ( typeof(tree['args']) != 'undefined' && tree['args'].length !== 0 ) {
+      tree['args'].forEach(function(item, index){
+        translation += '(';
+        translation += translateToBase(item);
+        translation += ')';
+      });
     }
 
     return translation;
