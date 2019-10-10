@@ -1,6 +1,7 @@
 {
   "η": {
     "fullType": "s",
+    "argsType": "v,n",
     "EN": {
       "atom": "let # be #",
       "type": "s((v←)⊠(n←))",
@@ -14,10 +15,12 @@
   },
   "#⇒#": {
     "fullType": "s",
+    "argsType": "s,s",
     "EN": {
       "atom": "if # then #",
       "type": "s((s←)⊠(s←))",
-      "argsType": "s,s" },
+      "argsType": "s,s"
+    },
     "FR": {
       "atom": "si # alors #",
       "type": "s((s←)⊠(s←))",
@@ -26,6 +29,7 @@
   },
   "ε": {
     "fullType": "n₁",
+    "argsType": "n",
     "EN": {
       "atom": "a",
       "type": "n₁n←",
@@ -39,6 +43,7 @@
   },
   "ɩ": {
     "fullType": "n₀",
+    "argsType": "n",
     "EN": {
       "atom": "the", 
       "type": "n₀n←",
@@ -52,6 +57,7 @@
   },
   "#⋀#": {
     "fullType": "s",
+    "argsType": "s,s",
     "EN": {
       "atom": "# and #",
       "type": "s((s←)⊠(s←))",
