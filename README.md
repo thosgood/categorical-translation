@@ -45,7 +45,9 @@
 
 #### Implementation
 
+- mark which languages are case insensitive
 - at the moment i think we just assume that all constructors take two arguments...
+    + **i think we can always reduce to this case? i dunno, languages might be weird man...**
 - constructors should be **checked** to see that the length of `argTypes` is equal to the number of #s (if the latter is non-zero)
     + this might be a **lot** easier in Dhall?
 - should be able to manually insert brackets into the thing to be translated and have them respected

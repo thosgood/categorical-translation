@@ -17,7 +17,7 @@ $(document).ready(function() {
 // At the moment, everything happens every single time the user enters a new
 // character into the input.
 // TODO: CHANGE THIS TO BE ON BUTTON PRESS
-//       this will (help) solve SO MANY THINGS e.g. binding in something like 
+//       this will (help) solve SO MANY THINGS e.g. binding in something like
 //       'Let $X$ be a group and let $Y$ be a scheme', where we need 'and' to
 //       bind first, but because the parsedInput is generated on every keypress,
 //       everything before the and has already been bound
@@ -25,7 +25,7 @@ $(document).ready(function() {
 //       i'm so confused
 translateInput.keyup(function() {
   var searchValue = $(this).val();
-  var language = $(this).attr('id');
+  var inputLanguage = $(this).attr('id');
 
   if ( searchValue === '' ) {
     resultsHTML.html('');
@@ -53,8 +53,8 @@ translateInput.keyup(function() {
     // For every noun with a translation into this language, check to see if it
     // matches the input.
     Object.keys(nouns).map(nounBase => {
-      if ( typeof nouns[nounBase]['root'][language] !== 'undefined' ) {
-        var atom = nouns[nounBase]['root'][language]['atom'];
+      if ( typeof nouns[nounBase]['root'][inputLanguage] !== 'undefined' ) {
+        var atom = nouns[nounBase]['root'][inputLanguage]['atom'];
         if (atom === input) {
           parsedInput[index]['type'] = 'noun';
           parsedInput[index]['base'] = nounBase;
@@ -96,7 +96,7 @@ translateInput.keyup(function() {
       Object.keys(adjectives).map(adjectiveBase => {
         // Select those that have a translation in our language, and then build
         // the lists of possible adjectives before or after (resp.) our noun.
-        var currentAdjective = adjectives[adjectiveBase][language]
+        var currentAdjective = adjectives[adjectiveBase][inputLanguage]
         if ( typeof currentAdjective !== 'undefined' ) {
           switch ( currentAdjective['pstn'] ) {
             case 'before':
@@ -220,7 +220,7 @@ translateInput.keyup(function() {
 
 
   // STEP 3.
-  
+
   var orderedCons = [];
 
   // We want to parse noun-type constructors before sentence-type ones (for
@@ -230,7 +230,7 @@ translateInput.keyup(function() {
   Object.keys(constructors).map(consBase => {
     var cons = constructors[consBase];
     // TODO: OH NO IT'S ANOTHER HACK
-    var temp = cons[language];
+    var temp = cons[inputLanguage];
     temp['base'] = consBase;
     temp['argsType'] = cons['argsType'];
     switch (cons['fullType'].charAt(0)) {
@@ -261,7 +261,7 @@ translateInput.keyup(function() {
         parsedReplacement['type'] = 'sentence';
         break;
     }
-    
+
     // parsedConstructor is sort of a bridge towards building parsedReplacement
     // and I'm sure that we don't really need it...
     // ...but this is all one big hack anyway, so who cares :)
@@ -365,14 +365,15 @@ translateInput.keyup(function() {
 
   // END STEP 3.
 
-
+  var baseTranslation = {};
 
   // STEP 4.
   // TODO: turn the tree into just some base sentence, e.g. 'Let $X$ be a scheme
   //       of finite type' would become `η($X$⊠(08b50276.271a0557))`
-  //       
-  // TODO: _how do you deal with inferring the order of the arguments ?_ e.g.
-  //       η **swaps** order between EN and FR
+
+
+
+  // TODO: use 'vari' to get the arguments in the right order
 
   // END STEP 4.
 
@@ -381,11 +382,14 @@ translateInput.keyup(function() {
   // STEP 5.
   // TODO: display things for the user.
   resultsHTML.html(JSON.stringify(parsedInput, undefined, 2));
-  // for ( i = 0; i < translateInput.length; i++ ) {
-  //   currentInput = translateInput[i];
-  //   if ( currentInput['id'] !== language ) {
-  //   }
-  // }
+
+  for ( var i = 0; i < translateInput.length; i++ ) {
+    currentInput = translateInput[i];
+    currentLanguage = currentInput['id'];
+    if ( currentLanguage !== inputLanguage ) {
+      currentInput.value = 'Test';
+    }
+  }
 
   // END STEP 5.
 });

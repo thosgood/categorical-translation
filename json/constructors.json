@@ -4,11 +4,13 @@
     "argsType": "v,n",
     "EN": {
       "atom": "let # be #",
-      "type": "s((v←)⊠(n←))"
+      "type": "s((v←)⊠(n←))",
+      "vari": "1,2"
     },
     "FR": {
       "atom": "soit",
-      "type": "s((n←)(v←))"
+      "type": "s((n←)(v←))",
+      "vari": "1,2"
     }
   },
   "#⇒#": {
@@ -16,11 +18,13 @@
     "argsType": "s,s",
     "EN": {
       "atom": "if # then #",
-      "type": "s((s←)⊠(s←))"
+      "type": "s((s←)⊠(s←))",
+      "vari": "1,2"
     },
     "FR": {
       "atom": "si # alors #",
-      "type": "s((s←)⊠(s←))"
+      "type": "s((s←)⊠(s←))",
+      "vari": "1,2"
     }
   },
   "ε": {
@@ -28,23 +32,27 @@
     "argsType": "n",
     "EN": {
       "atom": "a",
-      "type": "n₁n←"
+      "type": "n₁n←",
+      "vari": "1"
     },
     "FR": {
       "atom": "un",
-      "type": "n₁n←"
+      "type": "n₁n←",
+      "vari": "1"
     }
   },
   "ɩ": {
     "fullType": "n₀",
     "argsType": "n",
     "EN": {
-      "atom": "the", 
-      "type": "n₀n←"
+      "atom": "the",
+      "type": "n₀n←",
+      "vari": "1"
     },
     "FR": {
       "atom": "le",
-      "type": "n₀n←"
+      "type": "n₀n←",
+      "vari": "1"
     }
   },
   "#⋀#": {
@@ -52,11 +60,13 @@
     "argsType": "s,s",
     "EN": {
       "atom": "# and #",
-      "type": "s((s←)⊠(s←))"
+      "type": "s((s←)⊠(s←))",
+      "vari": "1,2"
     },
     "FR": {
       "atom": "# et #",
-      "type": "s((s←)⊠(s←))"
+      "type": "s((s←)⊠(s←))",
+      "vari": "1,2"
     }
   }
 }
