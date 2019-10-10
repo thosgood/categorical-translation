@@ -5,10 +5,13 @@
 #### Next on my list
 
 - **IGNORE ALL THE PROBLEMS AND JUST GET SOME TRANSLATIONS ACTUALLY TRANSLATED**
+- another fundamental constructor is `is: (s((n←)⊠(n←)))`
+
+- the implementation is *really* extra bad because we keep on looking stuff up, and we really shouldn't be going "here's the input so here's the atom of the corresponding object" but instead "here's the input so here's the entire matching object (i.e. the base point, since fibres can be reconstructed)"
 
 - switch to [Dhall](https://github.com/dhall-lang/dhall-lang) ?!
 - update the individual languages to JSON
-    + or don't bother, and get around to working out how to generate them from `nouns.json` etc.
+    + or don't bother, and get around to working out how to generate them fromp `nouns.json` etc.
 
 #### Theory
 

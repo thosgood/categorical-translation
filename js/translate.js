@@ -368,7 +368,8 @@ translateInput.keyup(function() {
 
 
   // STEP 4.
-  // TODO: do the translation!
+  // TODO: turn the tree into just some base sentence, e.g. 'Let $X$ be a scheme
+  //       of finite type' would become `η($X$⊠(08b50276.271a0557))`
 
   // END STEP 4.
 
