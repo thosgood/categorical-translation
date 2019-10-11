@@ -441,7 +441,7 @@ translateInput.keyup(function() {
         if ( relevantBase && relevantBase['root'][language] ) {
           translation += ' ';
           translation += relevantBase['root'][language]['atom'];
-        } else if (constructors[tree['base']][language]) {
+        } else if ( constructors[tree['base']] && constructors[tree['base']][language] ) {
           translation += ' ';
           translation += constructors[tree['base']][language]['atom'];
         } else {
@@ -467,6 +467,17 @@ translateInput.keyup(function() {
         break;
       case 'sentence':
         relevantBase = constructors[tree['base']];
+        if ( relevantBase && relevantBase[language] ) {
+          translation += ' ';
+          translation += relevantBase[language]['atom'];
+        } else {
+          translation += ` (${tree['base']}?) `;
+        }
+        if ( typeof(tree['args']) != 'undefined' && tree['args'].length != 0 ) {
+          tree['args'].forEach(function(item, index) {
+            translation += translateToLanguage(item, language);
+          });
+        }
         break;
       default:
         // translation += constructors[tree['base']][language]['atom'];
