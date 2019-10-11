@@ -466,7 +466,6 @@ translateInput.keyup(function() {
         }
         break;
       case 'sentence':
-        console.log(tree['base']);
         relevantBase = constructors[tree['base']];
         break;
       default:

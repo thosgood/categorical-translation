@@ -30,6 +30,11 @@
   "ε": {
     "fullType": "n₁",
     "argsType": "n",
+    "ES" : {
+      "atom": "un",
+      "type": "n₁n←",
+      "vari": "1"
+    },
     "EN": {
       "atom": "a",
       "type": "n₁n←",
@@ -44,6 +49,11 @@
   "ɩ": {
     "fullType": "n₀",
     "argsType": "n",
+    "ES": {
+      "atom": "el",
+      "type": "n₀n←",
+      "vari": "1"
+    },
     "EN": {
       "atom": "the",
       "type": "n₀n←",
