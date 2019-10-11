@@ -371,13 +371,13 @@ translateInput.keyup(function() {
   });
 
   // END STEP 3.
-  // 
+  //
   // TODO: WHY does something like "group $X$" just break it? the moment it sees
   //       a noun on its own I think it just stops??
-  //       
+  //
   // NOTE: IT'S THE LINE
   //         parsedInput.splice(firstPositioned+1, parsedReplacement['consAtom'].split(' ').length-1)
-  // 
+  //
 
 
 
@@ -436,24 +436,42 @@ translateInput.keyup(function() {
       case 'variable':
         translation += tree['input'];
         break;
-      default:
-        translation += tree['base'];
+      case 'noun':
+        relevantBase = nouns[tree['base']];
+        if ( relevantBase && relevantBase['root'][language] ) {
+          translation += ' ';
+          translation += relevantBase['root'][language]['atom'];
+        } else if (constructors[tree['base']][language]) {
+          translation += ' ';
+          translation += constructors[tree['base']][language]['atom'];
+        } else {
+          translation += ` (${tree['base']}?) `;
+        }
+        if ( typeof(tree['adjs']) != 'undefined' && tree['adjs'].length != 0 ) {
+          tree['adjs'].forEach(function(item, index) {
+            if (relevantBase['adjs'][item['base']][language]) {
+              translation += ' ';
+              translation += relevantBase['adjs'][item['base']][language]['atom'];
+            } else {
+              if (item['base']) {
+                translation += ` (${tree['base']}.${item['base']}?) `;
+              }
+            }
+          });
+        }
+        if ( typeof(tree['args']) != 'undefined' && tree['args'].length != 0 ) {
+          tree['args'].forEach(function(item, index) {
+            translation += translateToLanguage(item, language);
+          });
+        }
         break;
-    }
-
-    if ( typeof(tree['adjs']) != 'undefined' && tree['adjs'].length !== 0 ) {
-      tree['adjs'].forEach(function(item, index){
-        translation += '.';
-        translation += translateToBase(item);
-      });
-    }
-
-    if ( typeof(tree['args']) != 'undefined' && tree['args'].length !== 0 ) {
-      tree['args'].forEach(function(item, index){
-        translation += '(';
-        translation += translateToBase(item);
-        translation += ')';
-      });
+      case 'sentence':
+        console.log(tree['base']);
+        relevantBase = constructors[tree['base']];
+        break;
+      default:
+        // translation += constructors[tree['base']][language]['atom'];
+        break;
     }
 
     return translation;
