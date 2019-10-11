@@ -231,17 +231,19 @@ translateInput.keyup(function() {
     var cons = constructors[consBase];
     // TODO: OH NO IT'S ANOTHER HACK
     var temp = cons[inputLanguage];
-    temp['base'] = consBase;
-    temp['argsType'] = cons['argsType'];
-    switch (cons['fullType'].charAt(0)) {
-      case 'n':
-        temp['fullType'] = 'n';
-        orderedCons.unshift(temp);
-        break;
-      case 's':
-        temp['fullType'] = 's';
-        orderedCons.push(temp);
-        break;
+    if (temp) {
+      temp['base'] = consBase;
+      temp['argsType'] = cons['argsType'];
+      switch (cons['fullType'].charAt(0)) {
+        case 'n':
+          temp['fullType'] = 'n';
+          orderedCons.unshift(temp);
+          break;
+        case 's':
+          temp['fullType'] = 's';
+          orderedCons.push(temp);
+          break;
+      }
     }
   });
 
