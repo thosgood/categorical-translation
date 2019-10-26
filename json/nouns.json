@@ -14,9 +14,9 @@
     "adjs": {
       "085e026a": {
         "EN": { "atom": "affine"  , "pstn": "before" },
+        "ES": { "atom": "afín"    , "pstn": "after"  },
         "FR": { "atom": "affine"  , "pstn": "after"  },
         "IT": { "atom": "affine"  , "pstn": "after"  },
-        "SP": { "atom": "afín"    , "pstn": "after"  },
         "RU": { "atom": "аффинная", "pstn": "before" },
       },
       "12a103b4": {
