@@ -13,18 +13,59 @@
     },
     "adjs": {
       "085e026a": {
-        "EN": { "atom": "affine", "pstn": "before" },
-        "FR": { "atom": "affine", "pstn": "after"  },
-        "SP": { "atom": "afín"  , "pstn": "after"  }
+        "EN": { "atom": "affine"  , "pstn": "before" },
+        "FR": { "atom": "affine"  , "pstn": "after"  },
+        "IT": { "atom": "affine"  , "pstn": "after"  },
+        "SP": { "atom": "afín"    , "pstn": "after"  },
+        "RU": { "atom": "аффинная", "pstn": "before" }
+      },
+      "12a103b4": {
+        "DE": { "atom": "zusammenhängend" , "pstn": "before" },
+        "EN": { "atom": "connected"       , "pstn": "before" },
+      },
+      "15ed040e": {
+        "DE": { "atom": "noethersch" , "pstn": "before" },
+        "EN": { "atom": "Noetherian" , "pstn": "before" },
+        "IT": { "atom": "noetheriano", "pstn": "after"  },
+      },
+      "433b071e": {
+        "DE": { "atom": "lokal noethersch"      , "pstn": "before" },
+        "EN": { "atom": "locally Noetherian"    , "pstn": "before" },
+        "IT": { "atom": "localmente noetheriano", "pstn": "after"  },
       },
       "0ba202dd": {
         "DE": { "atom": "reduziert", "pstn": "before" },
         "EN": { "atom": "reduced"  , "pstn": "before" },
+        "IT": { "atom": "ridotto"  , "pstn": "after"  },
         "FR": { "atom": "réduit"   , "pstn": "after"  }
       },
       "0f230357": {
-        "EN": { "atom": "integral", "pstn": "before" },
-        "FR": { "atom": "intègre" , "pstn": "after"  }
+        "DE": { "atom": "ganz" ,     "pstn": "before" },
+        "EN": { "atom": "integral" , "pstn": "before" },
+        "FR": { "atom": "intègre"  , "pstn": "after"  },
+        "IT": { "atom": "integrale", "pstn": "after"  }
+      },
+      "0ba202dd": {
+        "EN": { "atom": "reduced"    , "pstn": "before" },
+        "RU": { "atom": "приведенная", "pstn": "before" }
+      },
+      "12da03ba": {
+        "EN": { "atom": "separated", "pstn": "before" },
+        "RU": { "atom": "отделимая", "pstn": "before" }
+      },
+      "1b9c048b": {
+        "DE": { "atom": "irreduzibel" , "pstn": "after"  },
+        "EN": { "atom": "irreducible" , "pstn": "before" },
+        "IT": { "atom": "irriducibile", "pstn": "after"  },
+      },
+      "0902028a": {
+        "DE": { "atom": "normal",  "pstn": "before" },
+        "EN": { "atom": "normal" , "pstn": "before" },
+        "IT": { "atom": "normale", "pstn": "after"  },
+      },
+      "24950538": {
+        "DE": { "atom": "quasi-kompakt",  "pstn": "before" },
+        "EN": { "atom": "quasi-compact" , "pstn": "before" },
       },
       "271a0557": {
         "EN": { "atom": "of finite type", "pstn": "after" },
