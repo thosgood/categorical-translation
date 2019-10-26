@@ -70,6 +70,8 @@
 
 ### Things to read
 
+- https://kwarc.info/people/mkohlhase/papers/icms16-smglom.pdf
+
 - https://kwarc.info/people/mkohlhase/papers/synasc13.pdf
 - http://www.logique.jussieu.fr/~alp/structure_vernacular.pdf
 - https://uniformal.github.io/doc/
