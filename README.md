@@ -42,6 +42,7 @@
     + e.g. we assume that atoms attach to the right, so we include ☐ only if this is not the case; if we include one ☐ then we include all of them, even those that _do_ sit on the right
 - **the notation of BASE is _for the moment_ purely suggestive**
     + it would be interesting to know if we _can_ formalise it, so that our languages can "only say things that make sense", but for now it is just a suggestive alternative to abstract hashes
+- set of x, sequence of x, ... what are these?
 
 #### Implementation
 
@@ -65,7 +66,7 @@
     + even when generated, still good to check that it parses
 - bases for nouns are Adler-32 hashes of the English name; we need
     + collision checking
-    + some local version of the hash script
+    + some local version of the hash script https://www.miniwebtool.com/adler32-checksum-calculator/
 - capital letters in e.g. German is going to mean we can't use case-insensitive regexes... ugh
 
 ### Things to read
@@ -98,8 +99,4 @@
 - https://arxiv.org/pdf/math/0609472.pdf
 - https://www.emaths.co.uk/index.php/teacher-resources/other-resources/english-as-an-additional-language-eal/category/russian
 
-- 08b50276
-    + `https://it.wikipedia.org/wiki/Schema_(matematica)#Tipi_di_schemi`
-    + `https://translate.academic.ru/scheme/en/ru/`
-    + `https://de.wikipedia.org/wiki/Schema_(algebraische_Geometrie)#Eigenschaften_von_Schemata`
 
