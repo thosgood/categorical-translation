@@ -95,31 +95,5 @@
         "EN": { "atom": "finite", "pstn": "before" }
       }
     }
-  },
-  "3f1206ca": {
-    "root": {
-      "DE": { "atom": "topologischer Raum"         , "gend": "maskulin"  },
-      "EN": { "atom": "topological space"                                },
-      "ES": { "atom": "espacio topológico"         , "gend": "masculino" },
-      "FR": { "atom": "espace topologique"         , "gend": "féminin"   },
-      "IT": { "atom": "spazio topologico"          , "gend": "maschile"  },
-      "JA": { "atom": "位相空間"                                         },
-      "PT": { "atom": "espaço topológico"          , "gend": "masculino" },
-      "RU": { "atom": "топологическое пространство", "gend": "средний"   },
-      "ZH": { "atom": "拓扑空间"                                         }
-    }
-  },
-  "1f8004c0": {
-    "root": {
-      "DE": { "atom": "Vektorraum"            , "gend": "neutral"   },
-      "EN": { "atom": "vector space"                                },
-      "ES": { "atom": "espacio vectorial"     , "gend": "masculino" },
-      "FR": { "atom": "espace vectoriel"      , "gend": "masculin"  },
-      "IT": { "atom": "spazio vettoriale"     , "gend": "maschile"  },
-      "JA": { "atom": "ベクトル空間"                                },
-      "PT": { "atom": "espaço vetorial"       , "gend": "masculino" },
-      "RU": { "atom": "Векторное пространство", "gend": "средний"   },
-      "ZH": { "atom": "向量空间"                                    }
-    }
   }
 }
