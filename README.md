@@ -8,12 +8,11 @@
 
 - the implementation is *really* extra bad because we keep on looking stuff up, and we really shouldn't be going "here's the input so here's the atom of the corresponding object" but instead "here's the input so here's the entire matching object (i.e. the base point, since fibres can be reconstructed)"
 
-- switch to [Dhall](https://github.com/dhall-lang/dhall-lang) ?!
-- update the individual languages to JSON
-    + or don't bother, and get around to working out how to generate them fromp `nouns.json` etc.
+- switch to [Dhall](https://github.com/dhall-lang/dhall-lang) ?
 
 #### Theory
 
+- `noun`s are really just `constructor`s that take adjectives
 - `variable` should be a subtype of `noun`!
     + and `noun` a subtype of `sentence`! (yikes)
 - in the implementation i don't think we care about `type`, but only `argsType` and `fullType` (which of course can be recovered from `type`, but it's so much easier to do this step manually)

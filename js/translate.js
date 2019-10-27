@@ -1,13 +1,189 @@
 const translateInput = $('input.translateInput');
 const resultsHTML = $('#results');
 
-const nounsURL = "https://thosgood.com/categorical-translation/json/nouns.json";
-var nouns;
-$.getJSON(nounsURL, data => nouns = data);
+const nouns = {
+  "08b50276": {
+    "root": {
+      "DE": { "atom": "Schema" , "gend": "maskulin"  },
+      "EN": { "atom": "scheme"                       },
+      "ES": { "atom": "esquema", "gend": "masculino" },
+      "FR": { "atom": "schéma" , "gend": "masculin"  },
+      "IT": { "atom": "schema" , "gend": "maschile"  },
+      "JA": { "atom": "概形"                         },
+      "PT": { "atom": "esquema", "gend": "masculino" },
+      "RU": { "atom": "cхема"  , "gend": "же́нский"   },
+      "ZH": { "atom": "概形"                         }
+    },
+    "adjs": {
+      "085e026a": {
+        "EN": { "atom": "affine"  , "pstn": "before" },
+        "ES": { "atom": "afín"    , "pstn": "after"  },
+        "FR": { "atom": "affine"  , "pstn": "after"  },
+        "IT": { "atom": "affine"  , "pstn": "after"  },
+        "RU": { "atom": "аффинная", "pstn": "before" }
+      },
+      "12a103b4": {
+        "DE": { "atom": "zusammenhängend" , "pstn": "before" },
+        "EN": { "atom": "connected"       , "pstn": "before" }
+      },
+      "15ed040e": {
+        "DE": { "atom": "noethersch" , "pstn": "before" },
+        "EN": { "atom": "Noetherian" , "pstn": "before" },
+        "IT": { "atom": "noetheriano", "pstn": "after"  }
+      },
+      "433b071e": {
+        "DE": { "atom": "lokal noethersch"      , "pstn": "before" },
+        "EN": { "atom": "locally Noetherian"    , "pstn": "before" },
+        "IT": { "atom": "localmente noetheriano", "pstn": "after"  }
+      },
+      "0ba202dd": {
+        "DE": { "atom": "reduziert"  , "pstn": "before" },
+        "EN": { "atom": "reduced"    , "pstn": "before" },
+        "FR": { "atom": "réduit"     , "pstn": "after"  },
+        "IT": { "atom": "ridotto"    , "pstn": "after"  },
+        "RU": { "atom": "приведенная", "pstn": "before" }
+      },
+      "0f230357": {
+        "DE": { "atom": "ganz" ,     "pstn": "before" },
+        "EN": { "atom": "integral" , "pstn": "before" },
+        "FR": { "atom": "intègre"  , "pstn": "after"  },
+        "IT": { "atom": "integrale", "pstn": "after"  }
+      },
+      "12da03ba": {
+        "EN": { "atom": "separated", "pstn": "before" },
+        "RU": { "atom": "отделимая", "pstn": "before" }
+      },
+      "1b9c048b": {
+        "DE": { "atom": "irreduzibel" , "pstn": "after"  },
+        "EN": { "atom": "irreducible" , "pstn": "before" },
+        "IT": { "atom": "irriducibile", "pstn": "after"  }
+      },
+      "0902028a": {
+        "DE": { "atom": "normal",  "pstn": "before" },
+        "EN": { "atom": "normal" , "pstn": "before" },
+        "IT": { "atom": "normale", "pstn": "after"  }
+      },
+      "24950538": {
+        "DE": { "atom": "quasi-kompakt",  "pstn": "before" },
+        "EN": { "atom": "quasi-compact" , "pstn": "before" }
+      },
+      "271a0557": {
+        "EN": { "atom": "of finite type", "pstn": "after" },
+        "FR": { "atom": "de type fini"  , "pstn": "after" }
+      }
+    }
+  },
+  "0677022e": {
+    "root": {
+      "DE": { "atom": "Gruppe", "gend": "feminin"   },
+      "EN": { "atom": "group"                       },
+      "ES": { "atom": "grupo" , "gend": "masculino" },
+      "FR": { "atom": "groupe", "gend": "masculin"  },
+      "IT": { "atom": "gruppo", "gend": "maschile"  },
+      "JA": { "atom": "群"                          },
+      "PT": { "atom": "grupo" , "gend": "masculino" },
+      "RU": { "atom": "группа", "gend": "же́нский"   },
+      "ZH": { "atom": "群"                          }
+    },
+    "adjs": {
+      "0ba202dd": {
+        "EN": { "atom": "reduced", "pstn": "before" },
+        "FR": { "atom": "réduit" , "pstn": "after"  }
+      },
+      "0b0e02cd": {
+        "EN": { "atom": "abelian", "pstn": "before" },
+        "FR": { "atom": "abélien", "pstn": "after"  }
+      },
+      "08b70280": {
+        "EN": { "atom": "finite", "pstn": "before" }
+      }
+    }
+  }
+}
 
-const constructorsURL = "https://thosgood.com/categorical-translation/json/constructors.json";
-var constructors;
-$.getJSON(constructorsURL, data => constructors = data);
+const constructors = {
+  "η": {
+    "fullType": "s",
+    "argsType": "v,n",
+    "EN": {
+      "atom": "let # be #",
+      "type": "s((v←)⊠(n←))",
+      "vari": "1,2"
+    },
+    "FR": {
+      "atom": "soit",
+      "type": "s((n←)(v←))",
+      "vari": "1,2"
+    }
+  },
+  "#⇒#": {
+    "fullType": "s",
+    "argsType": "s,s",
+    "EN": {
+      "atom": "if # then #",
+      "type": "s((s←)⊠(s←))",
+      "vari": "1,2"
+    },
+    "FR": {
+      "atom": "si # alors #",
+      "type": "s((s←)⊠(s←))",
+      "vari": "1,2"
+    }
+  },
+  "ε": {
+    "fullType": "n₁",
+    "argsType": "n",
+    "ES" : {
+      "atom": "un",
+      "type": "n₁n←",
+      "vari": "1"
+    },
+    "EN": {
+      "atom": "a",
+      "type": "n₁n←",
+      "vari": "1"
+    },
+    "FR": {
+      "atom": "un",
+      "type": "n₁n←",
+      "vari": "1"
+    }
+  },
+  "ɩ": {
+    "fullType": "n₀",
+    "argsType": "n",
+    "ES": {
+      "atom": "el",
+      "type": "n₀n←",
+      "vari": "1"
+    },
+    "EN": {
+      "atom": "the",
+      "type": "n₀n←",
+      "vari": "1"
+    },
+    "FR": {
+      "atom": "le",
+      "type": "n₀n←",
+      "vari": "1"
+    }
+  },
+  "#⋀#": {
+    "fullType": "s",
+    "argsType": "s,s",
+    "EN": {
+      "atom": "# and #",
+      "type": "s((s←)⊠(s←))",
+      "vari": "1,2"
+    },
+    "FR": {
+      "atom": "# et #",
+      "type": "s((s←)⊠(s←))",
+      "vari": "1,2"
+    }
+  }
+}
+
 
 // Clear all search inputs.
 $(document).ready(function() {
