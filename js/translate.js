@@ -1,11 +1,11 @@
 const translateInput = $('input.translateInput');
 const resultsHTML = $('#results');
 
-const nounsURL = "https://thosgood.com/categorical-translation/dictionary/json/nouns.json";
+const nounsURL = "https://thosgood.com/categorical-translation/json/nouns.json";
 var nouns;
 $.getJSON(nounsURL, data => nouns = data);
 
-const constructorsURL = "https://thosgood.com/categorical-translation/dictionary/json/constructors.json";
+const constructorsURL = "https://thosgood.com/categorical-translation/json/constructors.json";
 var constructors;
 $.getJSON(constructorsURL, data => constructors = data);
 
