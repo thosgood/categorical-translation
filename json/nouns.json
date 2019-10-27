@@ -1,15 +1,15 @@
 {
   "08b50276": {
     "root": {
-      "DE": { "atom": "Schema" , "gend": "Maskulina"   },
-      "EN": { "atom": "scheme"                         },
-      "ES": { "atom": "esquema", "gend": "masculino"   },
-      "FR": { "atom": "schéma" , "gend": "masculin"    },
-      "IT": { "atom": "schema" , "gend": "maschile"    },
-      "JA": { "atom": "概形"                           },
-      "PT": { "atom": "esquema", "gend": "masculino"   },
-      "RU": { "atom": "cхема"  , "gend": "же́нский род" },
-      "ZH": { "atom": "概形"                           }
+      "DE": { "atom": "Schema" , "gend": "maskulin"  },
+      "EN": { "atom": "scheme"                       },
+      "ES": { "atom": "esquema", "gend": "masculino" },
+      "FR": { "atom": "schéma" , "gend": "masculin"  },
+      "IT": { "atom": "schema" , "gend": "maschile"  },
+      "JA": { "atom": "概形"                         },
+      "PT": { "atom": "esquema", "gend": "masculino" },
+      "RU": { "atom": "cхема"  , "gend": "же́нский"   },
+      "ZH": { "atom": "概形"                         }
     },
     "adjs": {
       "085e026a": {
@@ -72,8 +72,15 @@
   },
   "0677022e": {
     "root": {
-      "EN": { "atom": "group"                      },
-      "FR": { "atom": "groupe", "gend": "masculin" }
+      "DE": { "atom": "Gruppe", "gend": "feminin"   },
+      "EN": { "atom": "group"                       },
+      "ES": { "atom": "grupo",  "gend": "masculino" },
+      "FR": { "atom": "groupe", "gend": "masculin"  },
+      "IT": { "atom": "gruppo", "gend": "maschile"  },
+      "JA": { "atom": "群"                          },
+      "PT": { "atom": "grupo",  "gend": "masculino" },
+      "RU": { "atom": "группа", "gend": "же́нский"   },
+      "ZH": { "atom": "群"                          }
     },
     "adjs": {
       "0ba202dd": {
