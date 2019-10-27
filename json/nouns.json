@@ -74,11 +74,11 @@
     "root": {
       "DE": { "atom": "Gruppe", "gend": "feminin"   },
       "EN": { "atom": "group"                       },
-      "ES": { "atom": "grupo",  "gend": "masculino" },
+      "ES": { "atom": "grupo" , "gend": "masculino" },
       "FR": { "atom": "groupe", "gend": "masculin"  },
       "IT": { "atom": "gruppo", "gend": "maschile"  },
       "JA": { "atom": "群"                          },
-      "PT": { "atom": "grupo",  "gend": "masculino" },
+      "PT": { "atom": "grupo" , "gend": "masculino" },
       "RU": { "atom": "группа", "gend": "же́нский"   },
       "ZH": { "atom": "群"                          }
     },
@@ -96,34 +96,30 @@
       }
     }
   },
-  "1f8004c0": {
-    "root": {
-      "EN": { "atom": "vector space" }
-    }
-  },
   "3f1206ca": {
     "root": {
-      "EN": { "atom": "topological space" }
+      "DE": { "atom": "topologischer Raum"         , "gend": "maskulin"  },
+      "EN": { "atom": "topological space"                                },
+      "ES": { "atom": "espacio topológico"         , "gend": "masculino" },
+      "FR": { "atom": "espace topologique"         , "gend": "féminin"   },
+      "IT": { "atom": "spazio topologico"          , "gend": "maschile"  },
+      "JA": { "atom": "位相空間"                                         },
+      "PT": { "atom": "espaço topológico"          , "gend": "masculino" },
+      "RU": { "atom": "топологическое пространство", "gend": "средний"   },
+      "ZH": { "atom": "拓扑空间"                                         }
     }
   },
-  "044a01b1": {
+  "1f8004c0": {
     "root": {
-      "EN": { "atom": "ring" }
-    }
-  },
-  "08eb0287": {
-    "root": {
-      "EN": { "atom": "module" }
-    }
-  },
-  "06120205": {
-    "root": {
-      "EN": { "atom": "field" }
-    }
-  },
-  "0ebe035f": {
-    "root": {
-      "EN": { "atom": "category" }
+      "DE": { "atom": "Vektorraum"            , "gend": "neutral"   },
+      "EN": { "atom": "vector space"                                },
+      "ES": { "atom": "espacio vectorial"     , "gend": "masculino" },
+      "FR": { "atom": "espace vectoriel"      , "gend": "masculin"  },
+      "IT": { "atom": "spazio vettoriale"     , "gend": "maschile"  },
+      "JA": { "atom": "ベクトル空間"                                },
+      "PT": { "atom": "espaço vetorial"       , "gend": "masculino" },
+      "RU": { "atom": "Векторное пространство", "gend": "средний"   },
+      "ZH": { "atom": "向量空间"                                    }
     }
   }
 }
