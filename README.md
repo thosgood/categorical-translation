@@ -45,6 +45,7 @@
 #### Implementation
 
 - https://github.com/reflex-frp/reflex-platform
+    + https://vaibhavsagar.com/blog/2019/10/29/getting-along-with-javascript/
 
 - mark which languages are case insensitive
 - at the moment i think we just assume that all constructors take two arguments...
